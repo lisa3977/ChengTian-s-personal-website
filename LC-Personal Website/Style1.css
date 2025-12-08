@@ -1,0 +1,48 @@
+*{
+    color: white;
+    margin:0;
+    padding:0;
+}
+body{
+    background-color: #303030;
+}
+
+
+.upinhead{
+    color: white;
+    font-size: 40px;
+    background-color: #202020;
+    height: 70px;
+    display: flex;
+    flex-direction: row;
+    box-shadow: 2px 2px 5px #000000;
+}
+.home{
+    margin-left: 20px;
+    padding: 10px;
+}
+.fighttext{
+    color: pink;
+    padding: 0;
+    width: 600px;
+    display: flex;
+    flex-direction: row;
+    justify-content: space-around;
+    position: absolute; 
+    left: 50%; 
+    transform: translateX(-50%);
+}
+.fighttext div{
+    width: 120px;
+    text-align: center;
+}
+.fighttext a{
+    color: white;
+    font-size: 20px;
+    text-decoration: none;
+}
+.fighttext a:hover{
+    color: #eb9937;
+}
+
+
