@@ -1,0 +1,83 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+    <title>我的个人作品集</title>
+    <link rel="stylesheet" href="style.css" />
+    <link rel="stylesheet" href="admin/editor.css" />
+    <!-- Google Fonts -->
+    <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+SC:wght@300;400;600;700&family=Ma+Shan+Zheng&display=swap" rel="stylesheet">
+</head>
+<body>
+    <!-- 导航栏 -->
+    <nav class="navbar" id="navbar">
+        <div class="nav-left">首页</div>
+        <div class="nav-right">
+            <a href="#intro">自我介绍</a>
+            <a href="#experience">工作经历</a>
+            <a href="#skills">技术能力</a>
+            <a href="#works">作品集</a>
+            <a href="#contact">联系我</a>
+        </div>
+    </nav>
+
+    <!-- 首页 Hero -->
+    <section class="hero" id="home">
+        <div class="floating-shapes"></div>
+        <div class="hero-content">
+            <h1>Hi, I'm <span style="color:var(--accent-pink)">设计师</span></h1>
+            <p>游戏3D建模 · 视觉艺术 · 创意表达</p>
+            <div class="scroll-hint">↓</div>
+        </div>
+    </section>
+
+    <!-- 自我介绍 -->
+    <section class="section-card" id="intro">
+        <h2 class="editable-text" data-key="intro-title">自我介绍</h2>
+        <p class="editable-text" data-key="intro-content">美术生背景，专注于游戏3D角色与场景建模，热爱将艺术与技术结合。</p>
+    </section>
+
+    <!-- 工作经历 -->
+    <section class="section-card" id="experience">
+        <h2 class="editable-text" data-key="exp-title">工作经历</h2>
+        <div class="timeline-item">
+            <div class="timeline-date editable-text" data-key="exp-date1">2023.06 - 至今</div>
+            <div class="timeline-content">
+                <h3 class="editable-text" data-key="exp-job1">XX游戏公司 · 实习3D美术师</h3>
+                <p class="editable-text" data-key="exp-desc1">负责角色高模雕刻与贴图绘制，参与《幻想世界》项目。</p>
+            </div>
+        </div>
+    </section>
+
+    <!-- 技术能力 -->
+    <section class="section-card" id="skills">
+        <h2 class="editable-text" data-key="skill-title">技术能力</h2>
+        <div class="skills-grid editable-area" id="skills-container">
+            <!-- 动态内容将插入此处 -->
+        </div>
+    </section>
+
+    <!-- 作品集 -->
+    <section class="section-card" id="works">
+        <h2 class="editable-text" data-key="work-title">作品集</h2>
+        <div class="works-grid editable-area" id="works-container">
+            <!-- 用户上传的作品将显示在此 -->
+        </div>
+    </section>
+
+    <!-- 联系我 -->
+    <section class="section-card" id="contact">
+        <h2 class="editable-text" data-key="contact-title">联系我</h2>
+        <p class="editable-text" data-key="contact-desc">欢迎通过以下方式联系我：</p>
+        <div class="contact-links editable-area">
+            <!-- 超链接将插入此处 -->
+        </div>
+    </section>
+
+    <!-- 脚本 -->
+    <script src="admin/auth.js"></script>
+    <script src="admin/editor.js"></script>
+    <script src="script.js"></script>
+</body>
+</html>

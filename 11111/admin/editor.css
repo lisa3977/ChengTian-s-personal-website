@@ -1,0 +1,67 @@
+/* admin/editor.css - 编辑模式专属样式 */
+
+/* 编辑模式全局类 */
+.edit-mode {
+    --edit-border: 2px dashed #ff9aa2;
+}
+
+/* 可编辑区域提示 */
+.editable-area .add-hint {
+    text-align: center;
+    padding: 20px;
+    color: #999;
+    font-style: italic;
+    cursor: pointer;
+    border: 1px dashed #ccc;
+    border-radius: 8px;
+    margin-top: 10px;
+}
+
+/* 悬浮操作按钮 */
+#edit-fab {
+    position: fixed;
+    bottom: 20px;
+    right: 20px;
+    display: none;
+    flex-direction: column;
+    gap: 10px;
+    z-index: 9999;
+}
+
+#edit-fab button {
+    width: 48px;
+    height: 48px;
+    border-radius: 50%;
+    border: none;
+    background: var(--accent-pink);
+    color: white;
+    font-size: 20px;
+    cursor: pointer;
+    box-shadow: 0 4px 12px rgba(0,0,0,0.2);
+    transition: transform 0.2s;
+}
+
+#edit-fab button:hover {
+    transform: scale(1.1);
+}
+
+#settings-btn {
+    background: var(--gold);
+    font-size: 16px;
+}
+
+/* 编辑中的文本区域 */
+.editing {
+    outline: none !important;
+}
+
+/* 编辑模式下禁用外部链接 */
+.edit-mode a {
+    pointer-events: none;
+    opacity: 0.7;
+}
+
+/* 模态框样式 */
+#editor-modal-overlay {
+    /* 样式已在 JS 中定义，此处可扩展 */
+}

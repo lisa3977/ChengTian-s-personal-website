@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>我的个人作品集</title>
+  <link rel="stylesheet" href="style.css" />
+  <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+SC:wght@300;400;600;700&display=swap" rel="stylesheet">
+</head>
+<body>
+  <!-- 导航栏 -->
+  <nav class="navbar" id="navbar">
+    <div class="nav-left"><a href="#home">首页</a></div>
+    <div class="nav-right" id="nav-items">
+      <!-- 动态生成 -->
+    </div>
+  </nav>
+
+  <!-- 首页 Hero -->
+  <section class="hero" id="home">
+    <div id="floating-container"></div>
+    <div class="hero-content">
+      <h1>Hi, I'm <span>设计师</span></h1>
+      <p>游戏3D建模 · 创意表达</p>
+    </div>
+  </section>
+
+  <!-- 项目块容器 -->
+  <div id="blocks-container"></div>
+
+  <!-- 编辑模式悬浮按钮 -->
+  <div id="edit-fab" class="hidden">
+    <button id="add-block-btn" title="添加项目块">+</button>
+    <button id="exit-edit-btn" title="退出编辑">✕</button>
+  </div>
+
+  <!-- 格式工具条（动态创建） -->
+  
+  <!-- 脚本（按依赖顺序） -->
+  <script src="auth.js"></script>
+  <script src="blocks.js"></script>
+  <script src="stickers.js"></script>
+  <script src="editor-ui.js"></script>
+  <script src="script.js"></script>
+</body>
+</html>

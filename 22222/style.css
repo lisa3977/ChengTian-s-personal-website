@@ -1,0 +1,356 @@
+/* =============== 全局变量 =============== */
+:root {
+  /* 首页背景：阳光天蓝 */
+  --bg-hero: linear-gradient(135deg, #e0f7fa 0%, #b3e5fc 100%);
+  --bg-content: #fdfdfd;
+  --text-dark: #263238;
+  --border-light: #e0e0e0;
+
+  /* 莫兰迪活力12色 */
+  --color-1: #ff9aa2;   /* 粉 */
+  --color-2: #ffb7b2;   /* 珊瑚 */
+  --color-3: #ffdac1;   /* 奶油 */
+  --color-4: #e2f0cb;   /* 薄荷 */
+  --color-5: #b5eadd;   /* 天蓝 */
+  --color-6: #c7ceea;   /* 鼠尾草紫 */
+  --color-7: #d6a2e8;   /* 薰衣草 */
+  --color-8: #f8a5c2;   /* 玫红 */
+  --color-9: #63cdda;   /* 青蓝 */
+  --color-10: #a29bfe;  /* 淡紫 */
+  --color-11: #fdcb6e;  /* 金黄 */
+  --color-12: #55efc4;  /* 翡翠绿 */
+
+  /* 默认超链接色 */
+  --link-default: var(--color-5);
+}
+
+/* =============== 重置与全局 =============== */
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+body {
+  background: var(--bg-content);
+  font-family: 'Noto Sans SC', sans-serif;
+  color: var(--text-dark);
+  line-height: 1.6;
+  scroll-behavior: smooth;
+  min-height: 100vh;
+}
+
+a {
+  text-decoration: none;
+  color: var(--link-default);
+  transition: all 0.2s;
+}
+
+/* =============== 导航栏 =============== */
+.navbar {
+  position: fixed;
+  top: 0;
+  width: 100%;
+  background: rgba(255, 255, 255, 0.85);
+  backdrop-filter: blur(12px);
+  -webkit-backdrop-filter: blur(12px);
+  padding: 16px 5%;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  z-index: 1000;
+  transition: transform 0.6s cubic-bezier(0.34, 1.56, 0.64, 1);
+  border-bottom: 1px solid rgba(0,0,0,0.05);
+}
+
+.nav-left a,
+.nav-right a {
+  font-weight: 600;
+  padding: 6px 12px;
+  border-radius: 8px;
+  transition: all 0.2s;
+}
+
+.nav-left a:hover,
+.nav-right a:hover {
+  background: rgba(99, 205, 170, 0.2);
+  color: var(--color-9);
+  box-shadow: 0 0 12px rgba(99, 205, 170, 0.4);
+}
+
+.nav-right {
+  display: flex;
+  gap: 24px;
+}
+
+/* =============== 首页 Hero =============== */
+.hero {
+  height: 100vh;
+  background: var(--bg-hero);
+  position: relative;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  overflow: hidden;
+}
+
+#floating-container {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  pointer-events: none;
+}
+
+.floating-shape {
+  position: absolute;
+  opacity: 0.7;
+}
+
+.hero-content {
+  text-align: center;
+  z-index: 2;
+  max-width: 800px;
+  padding: 0 20px;
+}
+
+.hero h1 {
+  font-size: 4rem;
+  margin-bottom: 20px;
+  font-weight: 700;
+}
+
+.hero h1 span {
+  color: var(--color-8);
+}
+
+.hero p {
+  font-size: 1.4rem;
+  opacity: 0.9;
+}
+
+/* =============== 项目块 =============== */
+.block {
+  max-width: 1000px;
+  margin: 80px auto;
+  padding: 40px;
+  background: white;
+  border-radius: 16px;
+  box-shadow: 0 6px 24px rgba(0,0,0,0.08);
+  position: relative;
+  min-height: 200px;
+}
+
+.block-header {
+  font-size: 2.2rem;
+  margin-bottom: 24px;
+  padding-left: 12px;
+  border-left: 6px solid var(--link-default);
+  cursor: move;
+  user-select: none;
+}
+
+.block-content {
+  min-height: 100px;
+  position: relative;
+}
+
+/* =============== 贴纸（编辑模式） =============== */
+.sticker {
+  position: absolute;
+  background: rgba(255, 255, 255, 0.7);
+  backdrop-filter: blur(10px);
+  -webkit-backdrop-filter: blur(10px);
+  border: 1px dashed var(--border-light);
+  border-radius: 12px;
+  padding: 10px;
+  min-width: 200px;
+  min-height: 160px;
+  cursor: move;
+  box-shadow: 0 4px 12px rgba(0,0,0,0.1);
+  z-index: 10;
+}
+
+.sticker img,
+.sticker video {
+  max-width: calc(100% - 20px);
+  max-height: calc(100% - 20px);
+  display: block;
+  margin: 10px auto;
+  border-radius: 8px;
+}
+
+.sticker p {
+  padding: 0 10px;
+  text-align: center;
+}
+
+/* 退出编辑模式：隐藏贴纸背景 */
+body:not(.edit-mode) .sticker {
+  background: transparent;
+  border: none;
+  box-shadow: none;
+  padding: 0;
+}
+
+/* =============== 编辑UI =============== */
+#edit-fab {
+  position: fixed;
+  bottom: 24px;
+  right: 24px;
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+  z-index: 9999;
+}
+
+#edit-fab button {
+  width: 52px;
+  height: 52px;
+  border: none;
+  border-radius: 50%;
+  font-size: 24px;
+  font-weight: bold;
+  cursor: pointer;
+  box-shadow: 0 4px 12px rgba(0,0,0,0.25);
+  transition: transform 0.2s;
+}
+
+#edit-fab button:hover {
+  transform: scale(1.1);
+}
+
+#add-block-btn {
+  background: var(--color-5);
+  color: white;
+}
+
+#exit-edit-btn {
+  background: #ff6b6b;
+  color: white;
+}
+
+.hidden {
+  display: none !important;
+}
+
+/* 密码弹窗 */
+#password-modal {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: rgba(0,0,0,0.6);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  z-index: 2000;
+}
+
+#password-modal .modal-content {
+  background: white;
+  padding: 30px;
+  border-radius: 16px;
+  width: 90%;
+  max-width: 400px;
+  text-align: center;
+}
+
+#password-modal input {
+  width: 100%;
+  padding: 12px;
+  margin: 16px 0;
+  border: 1px solid var(--border-light);
+  border-radius: 8px;
+  font-size: 1rem;
+}
+
+#password-modal button {
+  margin: 8px;
+  padding: 8px 16px;
+  border: none;
+  border-radius: 6px;
+  background: var(--color-5);
+  color: white;
+  cursor: pointer;
+}
+
+/* 格式工具条 */
+.format-toolbar {
+  position: absolute;
+  background: white;
+  border: 1px solid var(--border-light);
+  border-radius: 12px;
+  padding: 8px;
+  box-shadow: 0 4px 12px rgba(0,0,0,0.2);
+  z-index: 1001;
+  display: flex;
+  gap: 8px;
+}
+
+.format-toolbar button {
+  width: 32px;
+  height: 32px;
+  border: none;
+  border-radius: 6px;
+  background: #f5f5f5;
+  cursor: pointer;
+  font-size: 14px;
+}
+
+.format-toolbar .color-picker {
+  position: relative;
+}
+
+.format-toolbar .colors {
+  position: absolute;
+  top: 40px;
+  left: 0;
+  display: flex;
+  flex-wrap: wrap;
+  width: 120px;
+  padding: 8px;
+  background: white;
+  border: 1px solid var(--border-light);
+  border-radius: 8px;
+  box-shadow: 0 4px 12px rgba(0,0,0,0.2);
+  display: none;
+}
+
+.format-toolbar .color-picker:hover .colors {
+  display: flex;
+}
+
+.format-toolbar .colors div {
+  width: 24px;
+  height: 24px;
+  border-radius: 50%;
+  margin: 2px;
+  cursor: pointer;
+}
+
+/* =============== 响应式 =============== */
+@media (max-width: 768px) {
+  .navbar {
+    padding: 12px 4%;
+  }
+  
+  .nav-right {
+    gap: 16px;
+  }
+  
+  .hero h1 {
+    font-size: 2.8rem;
+  }
+  
+  .block {
+    margin: 60px 20px;
+    padding: 30px 20px;
+  }
+  
+  .block-header {
+    font-size: 1.8rem;
+  }
+}
