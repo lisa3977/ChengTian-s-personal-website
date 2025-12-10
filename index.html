@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="zh-CN">
+<html lang="en">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -7,60 +7,79 @@
     <link rel="stylesheet" href="style.css">
 </head>
 <body>
+    <!-- 顶部任务栏 -->
     <header>
         <nav>
             <ul>
-                <li><a href="#home">首页</a></li>
-                <li><a href="#about">自我介绍</a></li>
-                <li><a href="#experience">工作经历</a></li>
-                <li><a href="#skills">技术能力</a></li>
-                <li><a href="#contact">联系我</a></li>
+                <li><a href="#home">Home</a></li>
+                <li><a href="#work">Work</a></li>
+                <li><a href="#skills">Skills</a></li>
+                <li><a href="#contact">Contact</a></li>
             </ul>
         </nav>
     </header>
 
+    <!-- 主内容区域 -->
     <main>
+        <!-- 首页 -->
         <section id="home">
-            <h1>欢迎来到我的个人简介网站</h1>
-            <p>在这里，你可以了解我的背景、工作经历、技术能力以及联系方式。</p>
+            <h1>Hi, I'm ChengTian</h1>
+            <p>Welcome to my personal website. I'm a software engineer with a passion for building beautiful and functional applications.</p>
+            <button id="uploadBtn">+</button>
         </section>
 
-        <section id="about">
-            <h2>关于我</h2>
-            <p>我是一个充满热情和创造力的个人，热爱编程和解决问题。我拥有丰富的经验和技能，能够快速适应新的挑战。</p>
+        <!-- 工作经历 -->
+        <section id="work">
+            <h2>Work Experience</h2>
+            <p>...</p>
         </section>
 
-        <section id="experience">
-            <h2>工作经历</h2>
-            <p>我曾在多个公司工作，积累了丰富的经验。以下是我曾经的工作经历：</p>
-        </section>
-
+        <!-- 技术能力 -->
         <section id="skills">
-            <h2>技术能力</h2>
-            <p>我精通多种编程语言和技术，能够高效地完成各种项目。</p>
+            <h2>Skills</h2>
+            <p>...</p>
         </section>
 
+        <!-- 联系我 -->
         <section id="contact">
-            <h2>联系我</h2>
-            <p>如果你想与我联系，请通过以下方式：</p>
+            <h2>Contact</h2>
+            <p>...</p>
         </section>
     </main>
 
-    <footer>
-        <p>&copy; 2025 ChengTian</p>
-    </footer>
-
-    <div id="contentArea">
-        <!-- 方框页将在这里动态添加 -->
-    </div>
-
+    <!-- 身份认证表单 -->
     <div id="authForm">
-        <h2>身份认证</h2>
+        <h2>Identity Authentication</h2>
         <form id="authForm">
-            <input type="password" id="authInput" placeholder="请输入密码">
-            <button type="submit">登录</button>
+            <input type="password" id="authInput" placeholder="Enter password">
+            <button type="submit">Login</button>
         </form>
     </div>
+
+    <!-- 页面加载时自动收起任务栏 -->
+    <script>
+        document.addEventListener('DOMContentLoaded', function () {
+            const header = document.querySelector('header');
+            window.addEventListener('scroll', function () {
+                if (window.scrollY > 100) {
+                    header.style.height = '0';
+                    header.style.opacity = '0';
+                } else {
+                    header.style.height = '60px';
+                    header.style.opacity = '1';
+                }
+            });
+        });
+    </script>
+
+    <!-- 动效与视觉 -->
+    <script>
+        // 添加几何图形飘动
+        const elements = document.querySelectorAll('.element');
+        elements.forEach((el, i) => {
+            el.style.animationDelay = `${i * 0.5}s`;
+        });
+    </script>
 
     <script src="script.js"></script>
 </body>
