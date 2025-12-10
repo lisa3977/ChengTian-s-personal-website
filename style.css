@@ -1,0 +1,176 @@
+/* 莫兰迪色调（多种颜色，体现丰富与活泼） */
+:root {
+    --color-1: #f1e7d2; /* 米色 */
+    --color-2: #d4c3b3; /* 浅灰 */
+    --color-3: #b2a08f; /* 深灰 */
+    --color-4: #9e8a7a; /* 暗棕 */
+    --color-5: #7c6d5d; /* 深棕 */
+    --color-6: #6a5a4a; /* 深棕 */
+    --color-7: #584a3a; /* 深棕 */
+    --color-8: #463a2a; /* 深棕 */
+    --color-9: #342a1a; /* 深棕 */
+    --color-10: #221a0a; /* 深棕 */
+    --color-11: #f5f0e7; /* 浅灰白 */
+    --color-12: #e7e1d7; /* 浅灰白 */
+    --color-13: #d9d4c9; /* 浅灰白 */
+    --color-14: #c7c1b6; /* 浅灰白 */
+    --color-15: #b5b0a5; /* 浅灰白 */
+    --color-16: #a39d92; /* 浅灰白 */
+    --color-17: #918a81; /* 浅灰白 */
+    --color-18: #807a75; /* 浅灰白 */
+    --color-19: #6e6a6a; /* 浅灰白 */
+    --color-20: #5c5a5a; /* 浅灰白 */
+}
+
+/* 通用样式 */
+body {
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    margin: 0;
+    padding: 0;
+    background: linear-gradient(135deg, var(--color-1), var(--color-2));
+    color: #333;
+    overflow-x: hidden;
+}
+
+/* 导航栏 */
+header {
+    background: linear-gradient(135deg, var(--color-3), var(--color-4));
+    padding: 1rem 2rem;
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+    position: sticky;
+    top: 0;
+    z-index: 100;
+}
+
+nav ul {
+    list-style: none;
+    display: flex;
+    justify-content: center;
+    gap: 2rem;
+}
+
+nav a {
+    color: white;
+    text-decoration: none;
+    font-weight: 500;
+    transition: all 0.3s ease;
+}
+
+nav a:hover {
+    color: var(--color-5);
+    text-shadow: 0 0 5px rgba(255, 255, 255, 0.5);
+}
+
+/* 主内容区域 */
+main {
+    padding: 2rem 2rem;
+    margin: 0 auto;
+    max-width: 1200px;
+    background: linear-gradient(135deg, var(--color-6), var(--color-7));
+    border-radius: 10px;
+    box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
+}
+
+/* 首页 */
+#home {
+    min-height: 100vh;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    background: linear-gradient(135deg, var(--color-8), var(--color-9));
+    padding: 2rem;
+    margin: 0;
+    text-align: center;
+    position: relative;
+}
+
+#home h1 {
+    font-size: 4rem;
+    margin-bottom: 1rem;
+    color: var(--color-10);
+    text-shadow: 0 0 10px rgba(255, 255, 255, 0.5);
+    font-weight: 700;
+}
+
+#home p {
+    font-size: 1.5rem;
+    margin-bottom: 2rem;
+    color: var(--color-11);
+    text-shadow: 0 0 5px rgba(255, 255, 255, 0.3);
+}
+
+/* 滑动淡出动画 */
+section {
+    margin-bottom: 3rem;
+}
+
+section h2 {
+    font-size: 2.5rem;
+    margin-bottom: 1rem;
+    color: var(--color-12);
+    text-shadow: 0 0 5px rgba(255, 255, 255, 0.3);
+    font-weight: 700;
+}
+
+section p {
+    font-size: 1.2rem;
+    color: var(--color-13);
+    line-height: 1.6;
+}
+
+/* 左右留白设计 */
+body {
+    padding: 0 2rem;
+}
+
+/* 响应式设计 */
+@media (max-width: 768px) {
+    body {
+        padding: 0 1rem;
+    }
+    nav ul {
+        flex-direction: column;
+        gap: 1rem;
+    }
+    #home h1 {
+        font-size: 3rem;
+    }
+    #home p {
+        font-size: 1.2rem;
+    }
+    section h2 {
+        font-size: 2rem;
+    }
+    section p {
+        font-size: 1rem;
+    }
+}
+
+/* 动画效果 */
+.fade-in {
+    opacity: 0;
+    transform: translateY(30px);
+    transition: all 0.6s ease;
+}
+
+.fade-in.active {
+    opacity: 1;
+    transform: translateY(0);
+}
+
+/* 响应式设计 */
+@media (max-width: 480px) {
+    #home h1 {
+        font-size: 2.5rem;
+    }
+    #home p {
+        font-size: 1rem;
+    }
+    section h2 {
+        font-size: 1.5rem;
+    }
+    section p {
+        font-size: 0.9rem;
+    }
+}
