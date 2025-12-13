@@ -17,17 +17,20 @@
   </nav>
 
   <!-- 左侧编辑控制面板 -->
-<div id="edit-sidebar" class="hidden">
-  <div class="sidebar-header">项目块排序</div>
-  <div id="block-list"></div>
-</div>
+  <div id="edit-sidebar" class="hidden">
+    <div class="sidebar-header">项目块排序</div>
+    <div id="block-list"></div>
+  </div>
 
   <!-- 首页 Hero -->
   <section class="hero" id="home">
     <div id="floating-container"></div>
     <div class="hero-content">
-      <h1>Hi, I'm <span>设计师</span></h1>
-      <p>游戏3D建模 · 创意表达</p>
+      <h1>
+        Hi, I'm 
+        <span class="editable-hero-text" data-key="hero-main" data-color="var(--color-8)">设计师</span>
+      </h1>
+      <p class="editable-hero-text" data-key="hero-sub">游戏3D建模 · 创意表达</p>
     </div>
   </section>
 
@@ -36,17 +39,16 @@
 
   <!-- 编辑模式悬浮按钮 -->
   <div id="edit-fab" class="hidden">
-    <button id="add-block-btn" title="添加项目块">+</button>
+    <button id="add-block-btn" title="添加内容">+</button>
     <button id="exit-edit-btn" title="退出编辑">✕</button>
   </div>
 
-  <!-- 格式工具条（动态创建） -->
-  
-  <!-- 脚本（按依赖顺序） -->
+  <!-- 脚本 -->
   <script src="auth.js"></script>
   <script src="blocks.js"></script>
   <script src="stickers.js"></script>
   <script src="editor-ui.js"></script>
   <script src="script.js"></script>
+  <script src="cursor.js"></script>
 </body>
 </html>

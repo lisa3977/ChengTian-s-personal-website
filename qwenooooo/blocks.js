@@ -1,4 +1,4 @@
-// blocks.js - 完整项目块系统（含贴纸关联）
+// blocks.js - 项目块管理系统
 
 let blocks = JSON.parse(localStorage.getItem('portfolio_blocks')) || [
   { id: 'intro', title: '自我介绍', order: 0, height: 300 },
@@ -16,6 +16,7 @@ function renderBlocks() {
   blocks.sort((a, b) => a.order - b.order).forEach(block => {
     const blockEl = document.createElement('div');
     blockEl.className = 'block';
+    blockEl.id = `block-${block.id}`; // 添加ID用于导航跳转
     blockEl.dataset.id = block.id;
     blockEl.style.minHeight = block.height + 'px';
     
@@ -55,7 +56,7 @@ function renderSidebar() {
   initSidebarDrag();
 }
 
-// 左侧面板拖拽（修复版）
+// 初始化左侧面板拖拽
 function initSidebarDrag() {
   const list = document.getElementById('block-list');
   if (!list) return;
@@ -124,20 +125,19 @@ function getDragAfterElement(container, y) {
   }, { offset: Number.NEGATIVE_INFINITY }).element;
 }
 
-// 核心修复：根据左侧面板更新顺序
+// 根据左侧面板更新顺序
 function updateBlockOrderFromSidebar() {
   const newOrder = Array.from(document.querySelectorAll('#block-list .block-list-item')).map((el, index) => ({
     id: el.dataset.id,
     newIndex: index
   }));
   
-  // 更新 blocks 数据
   newOrder.forEach(({id, newIndex}) => {
     const block = blocks.find(b => b.id === id);
     if (block) block.order = newIndex;
   });
   
-  renderBlocks(); // 重新渲染
+  renderBlocks();
 }
 
 // 初始化块交互
@@ -220,13 +220,13 @@ function updateNavItems() {
   nav.innerHTML = '';
   blocks.sort((a, b) => a.order - b.order).forEach(block => {
     const a = document.createElement('a');
-    a.href = `#${block.id}`;
+    a.href = `#block-${block.id}`;
     a.textContent = block.title;
     nav.appendChild(a);
   });
 }
 
-// 恢复添加块功能
+// 添加新块
 function addNewBlock() {
   const newId = 'block-' + Date.now();
   blocks.push({ 

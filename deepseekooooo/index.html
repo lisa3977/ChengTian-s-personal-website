@@ -1,0 +1,158 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>设计师作品集</title>
+    <link rel="stylesheet" href="style.css">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+SC:wght@300;400;500;700&display=swap" rel="stylesheet">
+</head>
+<body>
+    <!-- 装饰元素容器 -->
+    <div id="decoration-container"></div>
+    
+    <!-- 鼠标粒子容器 -->
+    <div id="cursor-particle-container"></div>
+    
+    <!-- 导航栏 -->
+    <nav id="main-nav">
+        <div class="nav-content">
+            <div class="nav-items">
+                <a href="#home" class="nav-item active" data-section="home">首页</a>
+                <a href="#about" class="nav-item" data-section="about">关于我</a>
+                <a href="#projects" class="nav-item" data-section="projects">作品集</a>
+                <a href="#skills" class="nav-item" data-section="skills">专业技能</a>
+                <a href="#contact" class="nav-item" data-section="contact">联系我</a>
+            </div>
+        </div>
+    </nav>
+    
+    <!-- 首页区域 -->
+    <section id="home" class="section home-section">
+        <div class="container">
+            <h1 class="main-title">Hi, I'm <span class="designer-name" contenteditable="false">设计师</span></h1>
+            <p class="subtitle" contenteditable="false">游戏3D建模 · 创意表达</p>
+        </div>
+    </section>
+    
+    <!-- 内容区域 -->
+    <main id="content-area">
+        <div class="container">
+            <!-- 动态项目块将在这里插入 -->
+            <div id="blocks-container">
+                <!-- 默认项目块 -->
+                <section class="content-block" id="block-about" data-block-id="about">
+                    <h2 class="block-title"><span class="color-indicator"></span>关于我</h2>
+                    <div class="block-content">
+                        <p>这里是关于我的介绍内容。您可以编辑这段文字，添加更多个人信息。</p>
+                    </div>
+                    <div class="resize-handle"></div>
+                    <button class="delete-block-btn">×</button>
+                </section>
+                
+                <section class="content-block" id="block-projects" data-block-id="projects">
+                    <h2 class="block-title"><span class="color-indicator"></span>作品集</h2>
+                    <div class="block-content">
+                        <p>展示您的3D建模作品和其他创意项目。</p>
+                    </div>
+                    <div class="resize-handle"></div>
+                    <button class="delete-block-btn">×</button>
+                </section>
+                
+                <section class="content-block" id="block-skills" data-block-id="skills">
+                    <h2 class="block-title"><span class="color-indicator"></span>专业技能</h2>
+                    <div class="block-content">
+                        <p>列出您的专业技能和软件掌握情况。</p>
+                    </div>
+                    <div class="resize-handle"></div>
+                    <button class="delete-block-btn">×</button>
+                </section>
+            </div>
+        </div>
+    </main>
+    
+    <!-- 编辑模式UI -->
+    <div id="editor-ui" class="hidden">
+        <!-- 左侧排序面板 -->
+        <div id="sort-panel" class="hidden">
+            <h3>项目块排序</h3>
+            <ul id="block-list">
+                <!-- 动态生成 -->
+            </ul>
+        </div>
+        
+        <!-- 右下角功能菜单 -->
+        <div id="editor-menu" class="hidden">
+            <button id="add-content-btn" class="editor-btn">+</button>
+            <div id="menu-options" class="hidden">
+                <button class="menu-option" data-action="add-text">添加文本框</button>
+                <button class="menu-option" data-action="add-image">添加图片</button>
+                <button class="menu-option" data-action="add-video">添加视频</button>
+                <button class="menu-option" data-action="add-block">添加新项目块</button>
+            </div>
+            <button id="exit-edit-btn" class="editor-btn">✕</button>
+        </div>
+        
+        <!-- 文本编辑工具条 -->
+        <div id="text-toolbar" class="hidden">
+            <select id="font-size-select">
+                <option value="0.875rem">小字注释</option>
+                <option value="1rem" selected>普通文本</option>
+                <option value="1.5rem">副标题</option>
+            </select>
+            <div class="color-palette" id="text-color-palette">
+                <!-- 动态生成颜色选项 -->
+            </div>
+            <button id="add-link-btn" class="toolbar-btn">🔗</button>
+            <button id="remove-link-btn" class="toolbar-btn hidden">取消链接</button>
+        </div>
+    </div>
+    
+    <!-- 认证模态框 -->
+    <div id="auth-modal" class="modal hidden">
+        <div class="modal-content">
+            <h3>进入编辑模式</h3>
+            <input type="password" id="password-input" placeholder="输入密码" autocomplete="current-password">
+            <div class="modal-buttons">
+                <button id="confirm-password-btn">确认</button>
+                <a href="#" id="forgot-password-link">忘记密码？</a>
+            </div>
+        </div>
+    </div>
+    
+    <!-- 安全问题模态框 -->
+    <div id="security-modal" class="modal hidden">
+        <div class="modal-content">
+            <h3>找回密码</h3>
+            <p>你画的最满意的人像当中身上哪个地方放有什么重要的东西？</p>
+            <input type="text" id="security-answer" placeholder="输入答案">
+            <div class="modal-buttons">
+                <button id="confirm-answer-btn">确认</button>
+                <button id="cancel-security-btn">取消</button>
+            </div>
+        </div>
+    </div>
+    
+    <!-- 链接输入模态框 -->
+    <div id="link-modal" class="modal hidden">
+        <div class="modal-content">
+            <h3>添加超链接</h3>
+            <input type="url" id="link-url-input" placeholder="输入链接地址">
+            <div class="modal-buttons">
+                <button id="confirm-link-btn">确认</button>
+                <button id="cancel-link-btn">取消</button>
+            </div>
+        </div>
+    </div>
+    
+    <!-- JavaScript文件 -->
+    <script src="cursor.js"></script>
+    <script src="auth.js"></script>
+    <script src="blocks.js"></script>
+    <script src="stickers.js"></script>
+    <script src="editor-ui.js"></script>
+    <script src="script.js"></script>
+</body>
+</html>

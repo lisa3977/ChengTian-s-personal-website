@@ -1,0 +1,58 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>个人作品集</title>
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+  <!-- 导航栏 -->
+  <nav id="navbar" class="nav">
+    <ul>
+      <li class="active" data-target="home">首页</li>
+      <li data-target="about">关于我</li>
+      <li data-target="works">作品</li>
+      <li data-target="contact">联系</li>
+    </ul>
+  </nav>
+
+  <!-- 首页 Hero -->
+  <header id="home" class="hero">
+    <h1>Hi, I'm <span id="designer-name">设计师</span></h1>
+    <h2 id="subtitle">游戏3D建模 · 创意表达</h2>
+    <div id="background-shapes"></div>
+  </header>
+
+  <!-- 主内容区 -->
+  <main id="content">
+    <section id="about" class="block">
+      <h3>关于我</h3>
+    </section>
+
+    <section id="works" class="block">
+      <h3>作品</h3>
+    </section>
+
+    <section id="contact" class="block">
+      <h3>联系</h3>
+    </section>
+  </main>
+
+  <!-- 编辑系统 UI -->
+  <div id="editor-panel"></div>
+  <div id="editor-menu-btn">+</div>
+  <div id="editor-menu"></div>
+
+  <!-- 粒子跟随容器（脚本动态创建） -->
+  <div id="cursor-layer"></div>
+
+  <!-- 必须按顺序加载脚本 -->
+  <script src="script.js"></script>
+  <script src="auth.js"></script>
+  <script src="blocks.js"></script>
+  <script src="stickers.js"></script>
+  <script src="editor-ui.js"></script>
+  <script src="cursor.js"></script>
+</body>
+</html>

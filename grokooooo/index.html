@@ -1,0 +1,75 @@
+<!-- index.html -->
+<!DOCTYPE html>
+<html lang="zh">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>个人作品集</title>
+    <link rel="stylesheet" href="style.css">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+SC:wght@400;700&display=swap" rel="stylesheet">
+</head>
+<body>
+    <!-- 导航栏 -->
+    <nav id="navbar">
+        <ul>
+            <li id="nav-home" class="nav-item active">首页</li>
+            <!-- 其他导航项将在脚本中动态添加 -->
+        </ul>
+    </nav>
+
+    <!-- 首页 -->
+    <section id="home" class="section">
+        <div class="home-content">
+            <h1>Hi, I'm <span id="designer-name" class="designer-highlight">设计师</span></h1>
+            <p id="subtitle">游戏3D建模 · 创意表达</p>
+        </div>
+    </section>
+
+    <!-- 内容区域，项目块将在脚本中动态添加 -->
+    <main id="content"></main>
+
+    <!-- 编辑模式UI -->
+    <div id="editor-panel" class="hidden">
+        <h3>项目块排序</h3>
+        <ul id="block-list"></ul>
+    </div>
+    <div id="editor-menu" class="hidden">
+        <button id="add-text">添加文本框</button>
+        <button id="add-image">添加图片</button>
+        <button id="add-video">添加视频</button>
+        <button id="add-block">添加新项目块</button>
+    </div>
+    <button id="editor-add" class="hidden">+</button>
+    <button id="editor-exit" class="hidden">✕</button>
+
+    <!-- 密码输入模态 -->
+    <div id="auth-modal" class="modal hidden">
+        <div class="modal-content">
+            <input type="password" id="password-input" placeholder="输入密码">
+            <button id="auth-confirm">确认</button>
+            <a id="forgot-password">忘记密码？</a>
+        </div>
+    </div>
+
+    <!-- 安全问题模态 -->
+    <div id="security-modal" class="modal hidden">
+        <div class="modal-content">
+            <p>你画的最满意的人像当中身上哪个地方放有什么重要的东西？</p>
+            <input type="text" id="security-answer" placeholder="输入答案">
+            <button id="security-confirm">确认</button>
+        </div>
+    </div>
+
+    <!-- 鼠标粒子 -->
+    <div id="cursor-particle" class="particle"></div>
+
+    <script src="auth.js"></script>
+    <script src="blocks.js"></script>
+    <script src="stickers.js"></script>
+    <script src="editor-ui.js"></script>
+    <script src="cursor.js"></script>
+    <script src="script.js"></script>
+</body>
+</html>

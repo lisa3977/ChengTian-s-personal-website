@@ -1,0 +1,158 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>个人博客可视化编辑展示平台</title>
+    <link rel="stylesheet" href="blog-style.css">
+    <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+SC:wght@300;400;500;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+</head>
+<body>
+    <!-- 顶部菜单栏 -->
+    <header id="menu-bar">
+        <div class="menu-container">
+            <ul class="menu-list">
+                <li class="menu-item home-item"><a href="#home">首页</a></li>
+                <!-- 项目块标题将动态添加到这里 -->
+            </ul>
+        </div>
+    </header>
+
+    <!-- 首页区域 -->
+    <section id="home" class="home-section">
+        <div class="home-content">
+            <h1 class="home-title">个人博客可视化编辑平台</h1>
+            <p class="home-subtitle">自由排版 · 实时保存 · 可视化编辑</p>
+            <div class="home-actions">
+                <button id="enter-edit-btn" class="btn btn-primary">进入编辑模式</button>
+                <button id="view-preview-btn" class="btn btn-secondary">预览模式</button>
+            </div>
+        </div>
+    </section>
+
+    <!-- 项目块容器 -->
+    <main id="blocks-container">
+        <!-- 项目块将动态添加到这里 -->
+        <div class="empty-message" id="empty-blocks-message">
+            <p>暂无项目块，点击右下角"+"按钮添加新项目块。</p>
+        </div>
+    </main>
+
+    <!-- 左侧排序面板（编辑模式显示） -->
+    <div id="sorting-panel" class="editor-panel hidden">
+        <div class="panel-header">
+            <h3>项目块排序</h3>
+            <button id="close-sorting-panel" class="panel-close-btn">×</button>
+        </div>
+        <ul id="block-sort-list">
+            <!-- 项目块排序项将动态添加 -->
+        </ul>
+    </div>
+
+    <!-- 颜色选择面板 -->
+    <div id="color-panel" class="editor-panel hidden">
+        <div class="panel-header">
+            <h3>选择背景色</h3>
+            <button id="close-color-panel" class="panel-close-btn">×</button>
+        </div>
+        <div class="color-grid">
+            <!-- 莫兰迪色系12色 -->
+            <div class="color-option" data-color="#e57373" style="background-color: #e57373;"></div>
+            <div class="color-option" data-color="#f06292" style="background-color: #f06292;"></div>
+            <div class="color-option" data-color="#ba68c8" style="background-color: #ba68c8;"></div>
+            <div class="color-option" data-color="#9575cd" style="background-color: #9575cd;"></div>
+            <div class="color-option" data-color="#7986cb" style="background-color: #7986cb;"></div>
+            <div class="color-option" data-color="#64b5f6" style="background-color: #64b5f6;"></div>
+            <div class="color-option" data-color="#4fc3f7" style="background-color: #4fc3f7;"></div>
+            <div class="color-option" data-color="#4dd0e1" style="background-color: #4dd0e1;"></div>
+            <div class="color-option" data-color="#4db6ac" style="background-color: #4db6ac;"></div>
+            <div class="color-option" data-color="#81c784" style="background-color: #81c784;"></div>
+            <div class="color-option" data-color="#aed581" style="background-color: #aed581;"></div>
+            <div class="color-option" data-color="#dce775" style="background-color: #dce775;"></div>
+            <!-- 纯黑和纯白 -->
+            <div class="color-option" data-color="#000000" style="background-color: #000000; border: 1px solid #ddd;"></div>
+            <div class="color-option" data-color="#ffffff" style="background-color: #ffffff; border: 1px solid #ddd;"></div>
+        </div>
+    </div>
+
+    <!-- 文本编辑工具栏 -->
+    <div id="text-toolbar" class="editor-panel hidden">
+        <div class="toolbar-content">
+            <div class="font-size-group">
+                <button class="toolbar-btn" data-size="1.2rem">小标题</button>
+                <button class="toolbar-btn" data-size="1rem">正文文本</button>
+                <button class="toolbar-btn" data-size="0.875rem">小字注释</button>
+                <button class="toolbar-btn" data-size="1.5rem">大标题</button>
+                <input type="number" id="custom-font-size" placeholder="字号" min="8" max="72" class="custom-size-input">
+            </div>
+            <div class="color-group">
+                <button class="toolbar-btn color-picker-btn">
+                    <i class="fas fa-palette"></i>
+                </button>
+                <div id="text-color-panel" class="color-grid hidden">
+                    <!-- 文本颜色选项 -->
+                </div>
+            </div>
+            <button class="toolbar-btn" id="add-text-link">
+                <i class="fas fa-link"></i> 添加链接
+            </button>
+        </div>
+    </div>
+
+    <!-- 链接输入对话框 -->
+    <div id="link-dialog" class="modal-dialog hidden">
+        <div class="dialog-content">
+            <h3>添加超链接</h3>
+            <input type="url" id="link-url" placeholder="请输入链接地址 (https://...)" class="dialog-input">
+            <div class="dialog-actions">
+                <button id="cancel-link" class="btn btn-secondary">取消</button>
+                <button id="confirm-link" class="btn btn-primary">确认</button>
+            </div>
+        </div>
+    </div>
+
+    <!-- 删除确认对话框 -->
+    <div id="delete-dialog" class="modal-dialog hidden">
+        <div class="dialog-content">
+            <h3>确认删除</h3>
+            <p id="delete-message">确定要删除这个项目块吗？此操作不可撤销。</p>
+            <div class="dialog-actions">
+                <button id="cancel-delete" class="btn btn-secondary">取消</button>
+                <button id="confirm-delete" class="btn btn-danger">确认删除</button>
+            </div>
+        </div>
+    </div>
+
+    <!-- 右下角功能菜单 -->
+    <div id="function-menu" class="hidden">
+        <button id="add-menu-btn" class="menu-main-btn">
+            <i class="fas fa-plus"></i>
+        </button>
+        <div id="menu-options" class="menu-options">
+            <button class="menu-option" data-action="add-text">
+                <i class="fas fa-font"></i> 添加文本框
+            </button>
+            <button class="menu-option" data-action="add-image">
+                <i class="fas fa-image"></i> 添加图片框
+            </button>
+            <button class="menu-option" data-action="add-video">
+                <i class="fas fa-video"></i> 添加视频框
+            </button>
+            <button class="menu-option" data-action="add-block">
+                <i class="fas fa-square"></i> 添加项目块
+            </button>
+        </div>
+    </div>
+
+    <!-- 粘贴框容器 -->
+    <div id="stickers-container"></div>
+
+    <!-- 脚本文件 -->
+    <script src="blog-auth.js"></script>
+    <script src="blog-blocks.js"></script>
+    <script src="blog-stickers.js"></script>
+    <script src="blog-editor.js"></script>
+    <script src="blog-main.js"></script>
+</body>
+</html>

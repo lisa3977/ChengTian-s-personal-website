@@ -1,0 +1,185 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>个人作品集 - 设计师</title>
+    <link rel="stylesheet" href="style.css">
+    <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+SC:wght@300;400;500;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+</head>
+<body>
+    <!-- 几何装饰元素 -->
+    <div id="geometric-decorations"></div>
+    
+    <!-- 鼠标粒子 -->
+    <div id="cursor-particle"></div>
+    
+    <!-- 导航栏 -->
+    <nav id="navbar">
+        <div class="nav-container">
+            <ul class="nav-menu">
+                <li class="nav-item active"><a href="#home">首页</a></li>
+                <li class="nav-item"><a href="#about">关于我</a></li>
+                <li class="nav-item"><a href="#projects">项目作品</a></li>
+                <li class="nav-item"><a href="#skills">专业技能</a></li>
+                <li class="nav-item"><a href="#contact">联系我</a></li>
+            </ul>
+        </div>
+    </nav>
+    
+    <!-- 主容器：从上到下布局 -->
+    <div class="main-container">
+        <!-- 首页区域 -->
+        <section id="home" class="hero-section">
+            <div class="hero-content">
+                <h1 class="hero-title">Hi, I'm <span id="designer-text" class="highlight-text">设计师</span></h1>
+                <p class="hero-subtitle" id="subtitle-text">游戏3D建模 · 创意表达</p>
+                <div class="hero-buttons">
+                    <a href="#projects" class="btn btn-primary">查看作品</a>
+                    <a href="#contact" class="btn btn-secondary">联系我</a>
+                </div>
+            </div>
+        </section>
+        
+        <!-- 内容区域 -->
+        <main id="content-area">
+        <!-- 关于我 -->
+        <section id="about" class="content-block">
+            <div class="block-header">
+                <h2 class="block-title">关于我</h2>
+            </div>
+            <div class="block-content">
+                <!-- 粘贴框将在这里动态添加 -->
+                <div class="stickers-placeholder" data-block-id="about">
+                    <p class="placeholder-text">双击添加文本、拖入图片或视频</p>
+                </div>
+            </div>
+            <div class="block-resize-handle"></div>
+            <button class="block-delete-btn">×</button>
+        </section>
+        
+        <!-- 项目作品 -->
+        <section id="projects" class="content-block">
+            <div class="block-header">
+                <h2 class="block-title">项目作品</h2>
+            </div>
+            <div class="block-content">
+                <!-- 粘贴框将在这里动态添加 -->
+                <div class="stickers-placeholder" data-block-id="projects">
+                    <p class="placeholder-text">双击添加文本、拖入图片或视频</p>
+                </div>
+            </div>
+            <div class="block-resize-handle"></div>
+            <button class="block-delete-btn">×</button>
+        </section>
+        
+        <!-- 专业技能 -->
+        <section id="skills" class="content-block">
+            <div class="block-header">
+                <h2 class="block-title">专业技能</h2>
+            </div>
+            <div class="block-content">
+                <!-- 粘贴框将在这里动态添加 -->
+                <div class="stickers-placeholder" data-block-id="skills">
+                    <p class="placeholder-text">双击添加文本、拖入图片或视频</p>
+                </div>
+            </div>
+            <div class="block-resize-handle"></div>
+            <button class="block-delete-btn">×</button>
+        </section>
+        
+        <!-- 联系我 -->
+        <section id="contact" class="content-block">
+            <div class="block-header">
+                <h2 class="block-title">联系我</h2>
+            </div>
+            <div class="block-content">
+                <!-- 粘贴框将在这里动态添加 -->
+                <div class="stickers-placeholder" data-block-id="contact">
+                    <p class="placeholder-text">双击添加文本、拖入图片或视频</p>
+                </div>
+            </div>
+            <div class="block-resize-handle"></div>
+            <button class="block-delete-btn">×</button>
+        </section>
+    </main>
+    </div> <!-- 关闭 .main-container -->
+    
+    <!-- 编辑系统UI -->
+    <div id="editor-ui" class="hidden">
+        <!-- 左侧排序面板 -->
+        <div id="sorting-panel" class="editor-panel">
+            <h3>项目块排序</h3>
+            <ul id="block-list">
+                <!-- 动态生成 -->
+            </ul>
+        </div>
+        
+        <!-- 右下角功能菜单 -->
+        <div id="function-menu">
+            <button id="add-menu-btn" class="editor-btn">+</button>
+            <div id="menu-options" class="hidden">
+                <button class="menu-option" data-action="add-text">添加文本框</button>
+                <button class="menu-option" data-action="add-image">添加图片</button>
+                <button class="menu-option" data-action="add-video">添加视频</button>
+                <button class="menu-option" data-action="add-block">添加新项目块</button>
+            </div>
+        </div>
+        
+        <!-- 退出按钮 -->
+        <button id="exit-edit-btn" class="editor-btn">✕</button>
+        
+        <!-- 文本编辑工具条 -->
+        <div id="text-toolbar" class="hidden">
+            <button class="toolbar-btn" data-size="1.5rem">副标题</button>
+            <button class="toolbar-btn" data-size="1rem">普通文本</button>
+            <button class="toolbar-btn" data-size="0.875rem">小字注释</button>
+            <div class="color-picker">
+                <div class="color-option" style="background-color: #ff6b6b;"></div>
+                <div class="color-option" style="background-color: #ffa726;"></div>
+                <div class="color-option" style="background-color: #ffd166;"></div>
+                <div class="color-option" style="background-color: #06d6a0;"></div>
+                <div class="color-option" style="background-color: #118ab2;"></div>
+                <div class="color-option" style="background-color: #073b4c;"></div>
+            </div>
+            <button class="toolbar-btn" data-action="add-link">添加链接</button>
+        </div>
+    </div>
+    
+    <!-- 认证模态框 -->
+    <div id="auth-modal" class="modal hidden">
+        <div class="modal-content">
+            <h3>进入编辑模式</h3>
+            <div class="auth-form">
+                <input type="password" id="password-input" placeholder="请输入密码" autocomplete="off">
+                <button id="auth-submit">确认</button>
+                <a href="#" id="forgot-password">忘记密码？</a>
+            </div>
+        </div>
+    </div>
+    
+    <!-- 安全问题模态框 -->
+    <div id="security-modal" class="modal hidden">
+        <div class="modal-content">
+            <h3>密码找回</h3>
+            <p id="security-question">你画的最满意的人像当中身上哪个地方放有什么重要的东西？</p>
+            <div class="auth-form">
+                <input type="text" id="security-answer" placeholder="请输入答案" autocomplete="off">
+                <button id="security-submit">验证</button>
+            </div>
+        </div>
+    </div>
+    
+    <!-- 贴纸容器 -->
+    <div id="stickers-container"></div>
+    
+    <!-- 脚本文件 -->
+    <script src="auth.js"></script>
+    <script src="blocks.js"></script>
+    <script src="stickers.js"></script>
+    <script src="editor-ui.js"></script>
+    <script src="cursor.js"></script>
+    <script src="script.js"></script>
+</body>
+</html>

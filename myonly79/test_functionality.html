@@ -1,0 +1,333 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>网站功能测试</title>
+    <style>
+        body {
+            font-family: 'Noto Sans SC', sans-serif;
+            margin: 20px;
+            padding: 20px;
+            background-color: #f5f5f5;
+        }
+        .test-container {
+            max-width: 800px;
+            margin: 0 auto;
+            background: white;
+            padding: 30px;
+            border-radius: 10px;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+        }
+        h1 {
+            color: #333;
+            border-bottom: 2px solid #4CAF50;
+            padding-bottom: 10px;
+        }
+        .test-section {
+            margin: 20px 0;
+            padding: 15px;
+            border-left: 4px solid #2196F3;
+            background-color: #f8f9fa;
+        }
+        .test-result {
+            padding: 10px;
+            margin: 10px 0;
+            border-radius: 5px;
+            font-weight: bold;
+        }
+        .pass {
+            background-color: #d4edda;
+            color: #155724;
+            border: 1px solid #c3e6cb;
+        }
+        .fail {
+            background-color: #f8d7da;
+            color: #721c24;
+            border: 1px solid #f5c6cb;
+        }
+        .test-button {
+            background-color: #4CAF50;
+            color: white;
+            border: none;
+            padding: 10px 20px;
+            margin: 5px;
+            border-radius: 5px;
+            cursor: pointer;
+            font-size: 14px;
+        }
+        .test-button:hover {
+            background-color: #45a049;
+        }
+        .log {
+            background-color: #f8f9fa;
+            border: 1px solid #dee2e6;
+            padding: 10px;
+            margin: 10px 0;
+            border-radius: 5px;
+            font-family: monospace;
+            font-size: 12px;
+            max-height: 200px;
+            overflow-y: auto;
+        }
+    </style>
+</head>
+<body>
+    <div class="test-container">
+        <h1>个人博客可视化编辑展示网站功能测试</h1>
+        
+        <div class="test-section">
+            <h2>1. 服务器连接测试</h2>
+            <button class="test-button" onclick="testServerConnection()">测试服务器连接</button>
+            <div id="server-test-result" class="test-result"></div>
+            <div id="server-log" class="log"></div>
+        </div>
+        
+        <div class="test-section">
+            <h2>2. 文件加载测试</h2>
+            <button class="test-button" onclick="testFileLoading()">测试文件加载</button>
+            <div id="file-test-result" class="test-result"></div>
+            <div id="file-log" class="log"></div>
+        </div>
+        
+        <div class="test-section">
+            <h2>3. 模式切换测试</h2>
+            <button class="test-button" onclick="testModeSwitching()">测试模式切换</button>
+            <div id="mode-test-result" class="test-result"></div>
+            <div id="mode-log" class="log"></div>
+        </div>
+        
+        <div class="test-section">
+            <h2>4. 功能完整性测试</h2>
+            <button class="test-button" onclick="testFunctionality()">测试功能完整性</button>
+            <div id="func-test-result" class="test-result"></div>
+            <div id="func-log" class="log"></div>
+        </div>
+        
+        <div class="test-section">
+            <h2>5. 打开主网站</h2>
+            <button class="test-button" onclick="window.open('http://localhost:8080/', '_blank')">在新标签页打开主网站</button>
+            <button class="test-button" onclick="window.location.href='http://localhost:8080/'">在当前页打开主网站</button>
+        </div>
+    </div>
+
+    <script>
+        let testLog = [];
+        
+        function log(message, type = 'info') {
+            const timestamp = new Date().toLocaleTimeString();
+            const logEntry = `[${timestamp}] ${type.toUpperCase()}: ${message}`;
+            testLog.push(logEntry);
+            console.log(logEntry);
+            return logEntry;
+        }
+        
+        function updateLogDisplay(logElementId) {
+            const logElement = document.getElementById(logElementId);
+            if (logElement) {
+                logElement.innerHTML = testLog.map(entry => {
+                    if (entry.includes('ERROR')) {
+                        return `<span style="color: #dc3545;">${entry}</span>`;
+                    } else if (entry.includes('SUCCESS')) {
+                        return `<span style="color: #28a745;">${entry}</span>`;
+                    } else {
+                        return `<span style="color: #007bff;">${entry}</span>`;
+                    }
+                }).join('<br>');
+                logElement.scrollTop = logElement.scrollHeight;
+            }
+        }
+        
+        function clearLog() {
+            testLog = [];
+        }
+        
+        function setResult(elementId, success, message) {
+            const element = document.getElementById(elementId);
+            if (element) {
+                element.textContent = message;
+                element.className = 'test-result ' + (success ? 'pass' : 'fail');
+            }
+        }
+        
+        async function testServerConnection() {
+            clearLog();
+            log('开始测试服务器连接...');
+            
+            try {
+                const response = await fetch('http://localhost:8080/');
+                if (response.ok) {
+                    log('服务器连接成功，状态码: ' + response.status, 'success');
+                    setResult('server-test-result', true, '✓ 服务器连接正常');
+                } else {
+                    log('服务器返回错误状态码: ' + response.status, 'error');
+                    setResult('server-test-result', false, '✗ 服务器返回错误: ' + response.status);
+                }
+            } catch (error) {
+                log('服务器连接失败: ' + error.message, 'error');
+                setResult('server-test-result', false, '✗ 服务器连接失败');
+            }
+            
+            updateLogDisplay('server-log');
+        }
+        
+        async function testFileLoading() {
+            clearLog();
+            log('开始测试文件加载...');
+            
+            const files = [
+                'index.html',
+                'style.css',
+                'script.js',
+                'auth.js',
+                'blocks.js',
+                'stickers.js',
+                'editor-ui.js',
+                'cursor.js'
+            ];
+            
+            let allLoaded = true;
+            
+            for (const file of files) {
+                try {
+                    const response = await fetch('http://localhost:8080/' + file);
+                    if (response.ok) {
+                        log(`文件 ${file} 加载成功`, 'success');
+                    } else {
+                        log(`文件 ${file} 加载失败: 状态码 ${response.status}`, 'error');
+                        allLoaded = false;
+                    }
+                } catch (error) {
+                    log(`文件 ${file} 加载失败: ${error.message}`, 'error');
+                    allLoaded = false;
+                }
+            }
+            
+            if (allLoaded) {
+                setResult('file-test-result', true, '✓ 所有文件加载正常');
+            } else {
+                setResult('file-test-result', false, '✗ 部分文件加载失败');
+            }
+            
+            updateLogDisplay('file-log');
+        }
+        
+        function testModeSwitching() {
+            clearLog();
+            log('开始测试模式切换功能...');
+            
+            // 检查必要的DOM元素是否存在
+            const elements = [
+                { id: 'enter-edit-mode-btn', name: '进入编辑模式按钮' },
+                { id: 'exit-edit-mode-btn', name: '退出编辑模式按钮' },
+                { id: 'auth-modal', name: '认证模态框' },
+                { id: 'password-input', name: '密码输入框' },
+                { id: 'auth-submit', name: '认证提交按钮' }
+            ];
+            
+            let allElementsExist = true;
+            
+            elements.forEach(element => {
+                const el = document.getElementById(element.id);
+                if (el) {
+                    log(`${element.name} 存在`, 'success');
+                } else {
+                    log(`${element.name} 不存在`, 'error');
+                    allElementsExist = false;
+                }
+            });
+            
+            // 检查主网站中的元素
+            try {
+                const iframe = document.createElement('iframe');
+                iframe.style.display = 'none';
+                document.body.appendChild(iframe);
+                
+                iframe.onload = function() {
+                    const iframeDoc = iframe.contentDocument || iframe.contentWindow.document;
+                    
+                    const mainElements = [
+                        { selector: '#enter-edit-mode-btn', name: '主网站进入编辑模式按钮' },
+                        { selector: '#blocks-container', name: '主网站项目块容器' },
+                        { selector: '#menu-bar', name: '主网站菜单栏' }
+                    ];
+                    
+                    mainElements.forEach(element => {
+                        const el = iframeDoc.querySelector(element.selector);
+                        if (el) {
+                            log(`${element.name} 存在`, 'success');
+                        } else {
+                            log(`${element.name} 不存在`, 'error');
+                            allElementsExist = false;
+                        }
+                    });
+                    
+                    document.body.removeChild(iframe);
+                    
+                    if (allElementsExist) {
+                        setResult('mode-test-result', true, '✓ 模式切换功能元素完整');
+                    } else {
+                        setResult('mode-test-result', false, '✗ 部分模式切换元素缺失');
+                    }
+                    
+                    updateLogDisplay('mode-log');
+                };
+                
+                iframe.src = 'http://localhost:8080/';
+            } catch (error) {
+                log('无法检查主网站元素: ' + error.message, 'error');
+                setResult('mode-test-result', false, '✗ 无法检查主网站');
+                updateLogDisplay('mode-log');
+            }
+        }
+        
+        function testFunctionality() {
+            clearLog();
+            log('开始测试功能完整性...');
+            
+            // 检查关键功能模块
+            const modules = [
+                { name: '认证模块', check: () => typeof window.AuthModule !== 'undefined' },
+                { name: '项目块管理', check: () => typeof window.BlocksModule !== 'undefined' },
+                { name: '粘贴框管理', check: () => typeof window.StickersModule !== 'undefined' },
+                { name: '编辑器UI', check: () => typeof window.EditorUIModule !== 'undefined' }
+            ];
+            
+            let allModulesExist = true;
+            
+            modules.forEach(module => {
+                if (module.check()) {
+                    log(`${module.name} 已加载`, 'success');
+                } else {
+                    log(`${module.name} 未加载`, 'error');
+                    allModulesExist = false;
+                }
+            });
+            
+            // 检查localStorage支持
+            try {
+                localStorage.setItem('test', 'test');
+                localStorage.removeItem('test');
+                log('localStorage 支持正常', 'success');
+            } catch (error) {
+                log('localStorage 不支持: ' + error.message, 'error');
+                allModulesExist = false;
+            }
+            
+            if (allModulesExist) {
+                setResult('func-test-result', true, '✓ 功能模块完整');
+            } else {
+                setResult('func-test-result', false, '✗ 部分功能模块缺失');
+            }
+            
+            updateLogDisplay('func-log');
+        }
+        
+        // 页面加载时自动运行基本测试
+        window.addEventListener('load', function() {
+            setTimeout(testServerConnection, 500);
+            setTimeout(testFileLoading, 1000);
+        });
+    </script>
+</body>
+</html>

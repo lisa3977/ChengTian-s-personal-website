@@ -1,0 +1,176 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>个人博客可视化编辑展示平台</title>
+    <link rel="stylesheet" href="style.css">
+    <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+SC:wght@300;400;500;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+</head>
+<body>
+    <!-- 导航栏 -->
+    <nav class="navbar" id="navbar">
+        <div class="nav-left"><a href="#home">首页</a></div>
+        <div class="nav-right" id="nav-items">
+            <!-- 动态生成 -->
+        </div>
+        <div class="mode-toggle">
+            <button id="enter-edit-mode-btn" class="mode-btn">进入编辑模式</button>
+            <button id="exit-edit-mode-btn" class="mode-btn hidden">退出编辑模式</button>
+        </div>
+    </nav>
+
+    <!-- 左侧编辑控制面板 -->
+    <div id="edit-sidebar" class="hidden">
+        <div class="sidebar-header">项目块排序</div>
+        <div id="block-list"></div>
+    </div>
+
+    <!-- 首页 Hero -->
+    <section class="hero" id="home">
+        <div id="floating-container"></div>
+        <div class="hero-content">
+            <h1>
+                Hi, I'm 
+                <span class="editable-hero-text" data-key="hero-main" data-color="var(--color-8)">设计师</span>
+            </h1>
+            <p class="editable-hero-text" data-key="hero-sub">游戏3D建模 · 创意表达</p>
+        </div>
+    </section>
+
+    <!-- 主内容区域 -->
+    <main id="main-content">
+        <!-- 项目块容器 -->
+        <div id="blocks-container">
+            <!-- 项目块将动态添加到这里 -->
+        </div>
+
+        <!-- 右侧空白区域（方案要求页面左右两侧为空白区域） -->
+        <aside id="right-blank-area"></aside>
+    </main>
+
+    <!-- 添加粘贴框按钮 -->
+    <div id="add-sticker-container">
+        <button id="add-sticker-btn" class="floating-btn">
+            <i class="fas fa-plus"></i> 添加粘贴框
+        </button>
+        <div id="sticker-type-menu" class="hidden">
+            <button class="sticker-type-option" data-type="text">
+                <i class="fas fa-font"></i> 文本框
+            </button>
+            <button class="sticker-type-option" data-type="image">
+                <i class="fas fa-image"></i> 图片框
+            </button>
+            <button class="sticker-type-option" data-type="video">
+                <i class="fas fa-video"></i> 视频框
+            </button>
+        </div>
+    </div>
+
+    <!-- 颜色选择面板 -->
+    <div id="color-panel" class="hidden">
+        <h4>选择背景色</h4>
+        <div class="color-grid">
+            <!-- 12种莫兰迪色系 + 纯黑 + 纯白 -->
+            <div class="color-option" style="background-color: #f8f9fa;" data-color="#f8f9fa" title="纯白"></div>
+            <div class="color-option" style="background-color: #e9ecef;" data-color="#e9ecef"></div>
+            <div class="color-option" style="background-color: #dee2e6;" data-color="#dee2e6"></div>
+            <div class="color-option" style="background-color: #ced4da;" data-color="#ced4da"></div>
+            <div class="color-option" style="background-color: #adb5bd;" data-color="#adb5bd"></div>
+            <div class="color-option" style="background-color: #6c757d;" data-color="#6c757d"></div>
+            <div class="color-option" style="background-color: #495057;" data-color="#495057"></div>
+            <div class="color-option" style="background-color: #343a40;" data-color="#343a40"></div>
+            <div class="color-option" style="background-color: #212529;" data-color="#212529" title="纯黑"></div>
+            <!-- 莫兰迪色系 -->
+            <div class="color-option" style="background-color: #a5d6a7;" data-color="#a5d6a7"></div>
+            <div class="color-option" style="background-color: #80cbc4;" data-color="#80cbc4"></div>
+            <div class="color-option" style="background-color: #90caf9;" data-color="#90caf9"></div>
+            <div class="color-option" style="background-color: #b39ddb;" data-color="#b39ddb"></div>
+            <div class="color-option" style="background-color: #f48fb1;" data-color="#f48fb1"></div>
+            <div class="color-option" style="background-color: #ffcc80;" data-color="#ffcc80"></div>
+        </div>
+    </div>
+
+    <!-- 文本编辑工具栏 -->
+    <div id="text-toolbar" class="hidden">
+        <div class="toolbar-section">
+            <span>字体大小:</span>
+            <select id="font-size-select">
+                <option value="1.2rem">小标题</option>
+                <option value="1rem" selected>正文文本</option>
+                <option value="0.875rem">小字注释</option>
+                <option value="1.5rem">大标题</option>
+                <option value="custom">自定义</option>
+            </select>
+            <input type="number" id="custom-font-size" class="hidden" placeholder="字号" min="8" max="72">
+        </div>
+        <div class="toolbar-section">
+            <span>文字颜色:</span>
+            <div class="color-options-mini">
+                <div class="color-option-mini" style="background-color: #212529;" data-color="#212529"></div>
+                <div class="color-option-mini" style="background-color: #495057;" data-color="#495057"></div>
+                <div class="color-option-mini" style="background-color: #6c757d;" data-color="#6c757d"></div>
+                <div class="color-option-mini" style="background-color: #a5d6a7;" data-color="#a5d6a7"></div>
+                <div class="color-option-mini" style="background-color: #80cbc4;" data-color="#80cbc4"></div>
+                <div class="color-option-mini" style="background-color: #90caf9;" data-color="#90caf9"></div>
+                <div class="color-option-mini" style="background-color: #b39ddb;" data-color="#b39ddb"></div>
+                <div class="color-option-mini" style="background-color: #f48fb1;" data-color="#f48fb1"></div>
+            </div>
+        </div>
+        <div class="toolbar-section">
+            <button id="add-link-btn"><i class="fas fa-link"></i> 添加超链接</button>
+            <button id="remove-link-btn"><i class="fas fa-unlink"></i> 移除链接</button>
+        </div>
+        <button id="close-toolbar-btn"><i class="fas fa-times"></i></button>
+    </div>
+
+    <!-- 链接输入对话框 -->
+    <div id="link-dialog" class="modal hidden">
+        <div class="modal-content">
+            <h3>添加超链接</h3>
+            <input type="text" id="link-url" placeholder="请输入链接地址 (https://...)" autocomplete="off">
+            <div class="dialog-buttons">
+                <button id="confirm-link-btn">确认</button>
+                <button id="cancel-link-btn">取消</button>
+            </div>
+        </div>
+    </div>
+
+    <!-- 删除确认对话框 -->
+    <div id="delete-confirm-dialog" class="modal hidden">
+        <div class="modal-content">
+            <h3>确认删除</h3>
+            <p id="delete-message">确定要删除这个项目块及其所有关联的粘贴框吗？此操作不可撤销。</p>
+            <div class="dialog-buttons">
+                <button id="confirm-delete-btn">确认删除</button>
+                <button id="cancel-delete-btn">取消</button>
+            </div>
+        </div>
+    </div>
+
+    <!-- 认证模态框 -->
+    <div id="auth-modal" class="modal hidden">
+        <div class="modal-content">
+            <h3>进入编辑模式</h3>
+            <div class="auth-form">
+                <input type="password" id="password-input" placeholder="请输入密码" autocomplete="off">
+                <button id="auth-submit">确认</button>
+                <a href="#" id="forgot-password">忘记密码？</a>
+            </div>
+        </div>
+    </div>
+
+    <!-- 贴纸容器（用于存放所有粘贴框） -->
+    <div id="stickers-container"></div>
+
+    <!-- 脚本文件 -->
+    <script src="auth.js"></script>
+    <script src="blocks.js"></script>
+    <script src="stickers.js"></script>
+    <script src="editor-ui.js"></script>
+    <script src="cursor.js"></script>
+    <script src="script.js"></script>
+</body>
+</html>

@@ -20,8 +20,22 @@
   --color-11: #fdcb6e;  /* 金黄 */
   --color-12: #55efc4;  /* 翡翠绿 */
 
-  /* 默认超链接色 */
-  --link-default: var(--color-5);
+  /* 超链接明亮色 */
+  --link-1: #ff6b8a;
+  --link-2: #ff9a92;
+  --link-3: #ffc88a;
+  --link-4: #c2e8a0;
+  --link-5: #8ae6cc;
+  --link-6: #a8b8f0;
+  --link-7: #e8a2f0;
+  --link-8: #f875a2;
+  --link-9: #3acdda;
+  --link-10: #8a82fe;
+  --link-11: #fda83e;
+  --link-12: #2eeeb4;
+
+  /* 警示色 */
+  --warning-red: #ff6b6b;
 }
 
 /* =============== 重置与全局 =============== */
@@ -42,7 +56,7 @@ body {
 
 a {
   text-decoration: none;
-  color: var(--link-default);
+  color: var(--link-5);
   transition: all 0.2s;
 }
 
@@ -59,29 +73,40 @@ a {
   justify-content: space-between;
   align-items: center;
   z-index: 1000;
-  transition: transform 0.6s cubic-bezier(0.34, 1.56, 0.64, 1);
+  transition: transform 0.6s cubic-bezier(0.34, 1.56, 0.64, 1), opacity 0.3s;
   border-bottom: 1px solid rgba(0,0,0,0.05);
 }
 
 .nav-left a {
+  font-size: 1.4rem;
   font-weight: 700;
-  font-size: 1.4rem; /* 比右侧大 */
+  color: var(--color-8);
   padding: 6px 12px;
   border-radius: 8px;
   transition: all 0.2s;
-  color: var(--color-8); /* 粉色区别 */
-  text-shadow: 0 0 8px rgba(255, 154, 162, 0.3);
 }
 
 .nav-left a:hover {
-  background: rgba(255, 154, 162, 0.2);
-  color: var(--color-8);
-  box-shadow: 0 0 12px rgba(255, 154, 162, 0.4);
+  background: rgba(248, 165, 194, 0.2);
+  box-shadow: 0 0 16px rgba(248, 165, 194, 0.4);
 }
 
 .nav-right {
   display: flex;
   gap: 24px;
+}
+
+.nav-right a {
+  font-weight: 600;
+  padding: 6px 12px;
+  border-radius: 8px;
+  transition: all 0.2s;
+}
+
+.nav-right a:hover {
+  background: rgba(99, 205, 170, 0.2);
+  color: var(--link-9);
+  box-shadow: 0 0 12px rgba(99, 205, 170, 0.4);
 }
 
 /* =============== 首页 Hero =============== */
@@ -140,14 +165,14 @@ a {
   border-radius: 16px;
   box-shadow: 0 6px 24px rgba(0,0,0,0.08);
   position: relative;
-  min-height: 200px;
+  min-height: 300px;
 }
 
 .block-header {
   font-size: 2.2rem;
   margin-bottom: 24px;
   padding-left: 12px;
-  border-left: 6px solid var(--link-default);
+  border-left: 6px solid var(--link-5);
   cursor: move;
   user-select: none;
 }
@@ -196,6 +221,152 @@ body:not(.edit-mode) .sticker {
 }
 
 /* =============== 编辑UI =============== */
+#edit-sidebar {
+  position: fixed;
+  top: 80px;
+  left: 20px;
+  width: 220px;
+  background: rgba(255, 255, 255, 0.85);
+  backdrop-filter: blur(12px);
+  -webkit-backdrop-filter: blur(12px);
+  border-radius: 16px;
+  box-shadow: 0 4px 20px rgba(0,0,0,0.15);
+  padding: 16px;
+  z-index: 999;
+  max-height: calc(100vh - 120px);
+  overflow-y: auto;
+}
+
+.sidebar-header {
+  font-weight: 700;
+  margin-bottom: 12px;
+  color: var(--text-dark);
+  padding-bottom: 8px;
+  border-bottom: 1px solid var(--border-light);
+}
+
+.block-list-item {
+  padding: 12px 16px;
+  margin: 8px 0;
+  background: white;
+  border-radius: 12px;
+  cursor: grab;
+  transition: all 0.2s ease;
+  box-shadow: 0 2px 8px rgba(0,0,0,0.08);
+  display: flex;
+  align-items: center;
+  position: relative;
+  z-index: 1;
+}
+
+.block-list-item:hover {
+  background: var(--color-5);
+  color: white;
+  transform: translateX(4px);
+}
+
+.block-list-item.dragging {
+  opacity: 0.6;
+  transform: rotate(3deg) scale(0.98);
+}
+
+.insert-indicator {
+  height: 8px;
+  background: var(--color-9);
+  border-radius: 4px;
+  margin: 4px 0;
+  position: relative;
+}
+
+.insert-indicator::before {
+  content: "";
+  position: absolute;
+  top: -4px;
+  left: 50%;
+  transform: translateX(-50%);
+  width: 0;
+  height: 0;
+  border-left: 6px solid transparent;
+  border-right: 6px solid transparent;
+  border-bottom: 8px solid var(--color-9);
+}
+
+.block-resize-handle {
+  position: absolute;
+  bottom: -12px;
+  left: 50%;
+  transform: translateX(-50%);
+  width: 40px;
+  height: 8px;
+  background: var(--border-light);
+  border-radius: 4px;
+  cursor: ns-resize;
+  z-index: 5;
+  opacity: 0;
+  transition: opacity 0.2s, background 0.2s;
+}
+
+.edit-mode .block:hover .block-resize-handle {
+  opacity: 1;
+}
+
+.block-resize-handle::before {
+  content: "";
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  width: 16px;
+  height: 2px;
+  background: #999;
+  border-radius: 1px;
+}
+
+.block-resize-handle.resizing-down::after {
+  content: "↓";
+  position: absolute;
+  top: -20px;
+  left: 50%;
+  transform: translateX(-50%);
+  color: var(--color-9);
+  font-weight: bold;
+  font-size: 16px;
+}
+
+.block-resize-handle.resizing-up::after {
+  content: "↑";
+  position: absolute;
+  top: -20px;
+  left: 50%;
+  transform: translateX(-50%);
+  color: #ff6b6b;
+  font-weight: bold;
+  font-size: 16px;
+}
+
+.block-delete-btn {
+  position: absolute;
+  top: 16px;
+  right: 16px;
+  width: 24px;
+  height: 24px;
+  border-radius: 50%;
+  background: #ff6b6b;
+  color: white;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  font-size: 14px;
+  cursor: pointer;
+  opacity: 0;
+  transition: opacity 0.2s;
+  z-index: 3;
+}
+
+.edit-mode .block:hover .block-delete-btn {
+  opacity: 1;
+}
+
 #edit-fab {
   position: fixed;
   bottom: 24px;
@@ -278,7 +449,57 @@ body:not(.edit-mode) .sticker {
   cursor: pointer;
 }
 
-/* 格式工具条 */
+.forgot-password button {
+  background: none;
+  border: none;
+  color: var(--color-5);
+  cursor: pointer;
+  text-decoration: underline;
+}
+
+/* 添加菜单 */
+#add-menu-modal {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: rgba(0,0,0,0.6);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  z-index: 2000;
+}
+
+#add-menu-modal .modal-content {
+  background: white;
+  padding: 24px;
+  border-radius: 16px;
+  width: 90%;
+  max-width: 300px;
+  text-align: center;
+  box-shadow: 0 8px 32px rgba(0,0,0,0.2);
+}
+
+#add-menu-modal button {
+  width: 100%;
+  padding: 12px;
+  margin: 8px 0;
+  border: none;
+  border-radius: 8px;
+  background: var(--color-5);
+  color: white;
+  font-size: 1rem;
+  cursor: pointer;
+  transition: all 0.2s;
+}
+
+#add-menu-modal button:hover {
+  background: var(--color-9);
+  transform: translateY(-2px);
+}
+
+/* 文本工具条 */
 .format-toolbar {
   position: absolute;
   background: white;
@@ -332,6 +553,17 @@ body:not(.edit-mode) .sticker {
   cursor: pointer;
 }
 
+/* 首页标题编辑 */
+.editable-hero-text {
+  cursor: pointer;
+  border-bottom: 1px dashed transparent;
+  transition: border-color 0.2s;
+}
+
+.edit-mode .editable-hero-text:hover {
+  border-bottom: 1px dashed #999;
+}
+
 /* =============== 响应式 =============== */
 @media (max-width: 768px) {
   .navbar {
@@ -354,285 +586,8 @@ body:not(.edit-mode) .sticker {
   .block-header {
     font-size: 1.8rem;
   }
-}
-/* =============== 编辑模式 - 项目块控制 =============== */
-.edit-mode .block {
-  position: relative;
-  transition: height 0.3s ease;
-}
-
-/* 拖拽手柄（顶部小条） */
-.block-drag-handle {
-  position: absolute;
-  top: -28px;
-  left: 50%;
-  transform: translateX(-50%);
-  width: 80px;
-  height: 24px;
-  background: rgba(0, 0, 0, 0.1);
-  backdrop-filter: blur(8px);
-  -webkit-backdrop-filter: blur(8px);
-  border-radius: 12px;
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  cursor: grab;
-  z-index: 5;
-  opacity: 0;
-  transition: opacity 0.2s;
-}
-
-.edit-mode .block:hover .block-drag-handle {
-  opacity: 1;
-}
-
-.block-drag-handle::after {
-  content: "?";
-  color: #666;
-  font-size: 14px;
-}
-
-/* 高度调整手柄（底部） */
-.block-resize-handle {
-  position: absolute;
-  bottom: -12px;
-  left: 50%;
-  transform: translateX(-50%);
-  width: 40px;
-  height: 16px;
-  background: rgba(0, 0, 0, 0.1);
-  border-radius: 8px;
-  cursor: ns-resize;
-  z-index: 5;
-  opacity: 0;
-  transition: opacity 0.2s;
-}
-
-.edit-mode .block:hover .block-resize-handle {
-  opacity: 1;
-}
-
-.block-resize-handle::after {
-  content: "?";
-  color: #666;
-  font-size: 12px;
-  position: absolute;
-  top: 50%;
-  left: 50%;
-  transform: translate(-50%, -50%);
-}
-
-/* 删除按钮（右上角） */
-.block-delete-btn {
-  position: absolute;
-  top: 16px;
-  right: 16px;
-  width: 24px;
-  height: 24px;
-  border-radius: 50%;
-  background: #ff6b6b;
-  color: white;
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  font-size: 14px;
-  cursor: pointer;
-  opacity: 0;
-  transition: opacity 0.2s;
-  z-index: 3;
-}
-
-.edit-mode .block:hover .block-delete-btn {
-  opacity: 1;
-}
-
-/* 拖拽时高亮 */
-.block.dragging {
-  box-shadow: 0 0 0 2px var(--color-5), 0 8px 24px rgba(0,0,0,0.15);
-}
-/* =============== 编辑模式 - 左侧控制面板 =============== */
-#edit-sidebar {
-  position: fixed;
-  top: 80px;
-  left: 20px;
-  width: 220px;
-  background: rgba(255, 255, 255, 0.85);
-  backdrop-filter: blur(12px);
-  -webkit-backdrop-filter: blur(12px);
-  border-radius: 16px;
-  box-shadow: 0 4px 20px rgba(0,0,0,0.15);
-  padding: 16px;
-  z-index: 999;
-  max-height: calc(100vh - 120px);
-  overflow-y: auto;
-}
-
-.sidebar-header {
-  font-weight: 700;
-  margin-bottom: 12px;
-  color: var(--text-dark);
-  padding-bottom: 8px;
-  border-bottom: 1px solid var(--border-light);
-}
-
-.block-list-item {
-  padding: 10px 12px;
-  margin: 6px 0;
-  background: white;
-  border-radius: 10px;
-  cursor: grab;
-  transition: all 0.2s;
-  display: flex;
-  align-items: center;
-}
-
-.block-list-item:hover {
-  background: var(--color-5);
-  color: white;
-}
-
-.block-list-item.dragging {
-  opacity: 0.7;
-  transform: rotate(2deg);
-}
-
-/* 高度调整手柄优化 */
-.block-resize-handle {
-  position: absolute;
-  bottom: -12px;
-  left: 50%;
-  transform: translateX(-50%);
-  width: 40px;
-  height: 8px;
-  background: var(--border-light);
-  border-radius: 4px;
-  cursor: ns-resize;
-  z-index: 5;
-  opacity: 0;
-  transition: opacity 0.2s, background 0.2s;
-}
-
-.edit-mode .block:hover .block-resize-handle {
-  opacity: 1;
-}
-
-.block-resize-handle.resizing-down::after {
-  content: "↓";
-  position: absolute;
-  top: -16px;
-  left: 50%;
-  transform: translateX(-50%);
-  color: var(--color-9);
-  font-weight: bold;
-}
-
-.block-resize-handle.resizing-up::after {
-  content: "↑";
-  position: absolute;
-  top: -16px;
-  left: 50%;
-  transform: translateX(-50%);
-  color: #ff6b6b;
-  font-weight: bold;
-}
-/* =============== 左侧面板拖拽优化 =============== */
-.block-list-item {
-  padding: 12px 16px;
-  margin: 8px 0;
-  background: white;
-  border-radius: 12px;
-  cursor: grab;
-  transition: all 0.2s ease;
-  box-shadow: 0 2px 8px rgba(0,0,0,0.08);
-  display: flex;
-  align-items: center;
-  position: relative;
-  z-index: 1;
-}
-
-.block-list-item:hover {
-  background: var(--color-5);
-  color: white;
-  transform: translateX(4px);
-}
-
-.block-list-item.dragging {
-  opacity: 0.6;
-  transform: rotate(3deg) scale(0.98);
-}
-
-/* 插入指示器（梯形） */
-.insert-indicator {
-  height: 8px;
-  background: var(--color-9);
-  border-radius: 4px;
-  margin: 4px 0;
-  position: relative;
-}
-
-.insert-indicator::before {
-  content: "";
-  position: absolute;
-  top: -4px;
-  left: 50%;
-  transform: translateX(-50%);
-  width: 0;
-  height: 0;
-  border-left: 6px solid transparent;
-  border-right: 6px solid transparent;
-  border-bottom: 8px solid var(--color-9);
-}
-
-/* =============== 缩放手柄优化 =============== */
-.block-resize-handle {
-  position: absolute;
-  bottom: -12px;
-  left: 50%;
-  transform: translateX(-50%);
-  width: 40px;
-  height: 8px;
-  background: var(--border-light);
-  border-radius: 4px;
-  cursor: ns-resize;
-  z-index: 5;
-  opacity: 0;
-  transition: opacity 0.2s, background 0.2s;
-}
-
-.edit-mode .block:hover .block-resize-handle {
-  opacity: 1;
-}
-
-.block-resize-handle::before {
-  content: "";
-  position: absolute;
-  top: 50%;
-  left: 50%;
-  transform: translate(-50%, -50%);
-  width: 16px;
-  height: 2px;
-  background: #999;
-  border-radius: 1px;
-}
-
-.block-resize-handle.resizing-down::after {
-  content: "↓";
-  position: absolute;
-  top: -20px;
-  left: 50%;
-  transform: translateX(-50%);
-  color: var(--color-9);
-  font-weight: bold;
-  font-size: 16px;
-}
-
-.block-resize-handle.resizing-up::after {
-  content: "↑";
-  position: absolute;
-  top: -20px;
-  left: 50%;
-  transform: translateX(-50%);
-  color: #ff6b6b;
-  font-weight: bold;
-  font-size: 16px;
+  
+  #edit-sidebar {
+    display: none;
+  }
 }

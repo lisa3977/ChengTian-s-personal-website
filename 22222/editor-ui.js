@@ -8,6 +8,9 @@ function enableEditMode() {
   document.body.classList.add('edit-mode');
   document.getElementById('edit-fab').classList.remove('hidden');
   
+  // 👇 新增：显示左侧面板
+  toggleSidebar(true);
+
   // 使块标题可编辑
   document.querySelectorAll('.block-header').forEach(header => {
     header.contentEditable = true;
@@ -22,6 +25,9 @@ function disableEditMode() {
   isEditMode = false;
   document.body.classList.remove('edit-mode');
   document.getElementById('edit-fab').classList.add('hidden');
+  
+    // 👇 新增：隐藏左侧面板
+  toggleSidebar(false);
   
   // 恢复块标题不可编辑
   document.querySelectorAll('.block-header').forEach(header => {

@@ -1,0 +1,1459 @@
+/* 基础样式重置 */
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+html {
+    scroll-behavior: smooth;
+}
+
+body {
+    font-family: 'Noto Sans SC', sans-serif;
+    overflow-x: hidden;
+    position: relative;
+    min-height: 100vh;
+}
+
+/* 几何装饰元素 */
+#geometric-decorations {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    pointer-events: none;
+    z-index: -1;
+}
+
+.geometric-decoration {
+    position: absolute;
+    opacity: 0.3;
+    animation: float 20s infinite linear;
+}
+
+@keyframes float {
+    0%, 100% {
+        transform: translate(0, 0) rotate(0deg);
+    }
+    25% {
+        transform: translate(100px, 50px) rotate(90deg);
+    }
+    50% {
+        transform: translate(50px, 100px) rotate(180deg);
+    }
+    75% {
+        transform: translate(-50px, 50px) rotate(270deg);
+    }
+}
+
+/* 主容器：从上到下布局 */
+.main-container {
+    display: block;
+    min-height: 100vh;
+}
+
+/* 首页区域 - 全屏显示 */
+.hero-section {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background: linear-gradient(135deg, #e0f7fa 0%, #b3e5fc 100%);
+    position: relative;
+    overflow: hidden;
+    padding: 40px 20px;
+    min-height: 100vh; /* 全屏高度 */
+    width: 100%;
+}
+
+.hero-content {
+    text-align: center;
+    z-index: 1;
+    max-width: 800px;
+    padding: 60px 40px;
+    background: transparent; /* 透明背景 */
+    border-radius: 20px;
+    backdrop-filter: none; /* 移除模糊效果 */
+    box-shadow: none; /* 移除阴影 */
+}
+
+.hero-title {
+    font-size: 4rem;
+    font-weight: 700;
+    margin-bottom: 20px;
+    color: #333;
+}
+
+.highlight-text {
+    color: #ff6b6b; /* 莫兰迪粉 */
+    position: relative;
+    display: inline-block;
+}
+
+.highlight-text::after {
+    content: '';
+    position: absolute;
+    bottom: -5px;
+    left: 0;
+    width: 100%;
+    height: 3px;
+    background: #ff6b6b;
+    transform: scaleX(0);
+    transition: transform 0.3s ease;
+}
+
+.hero-title:hover .highlight-text::after {
+    transform: scaleX(1);
+}
+
+.hero-subtitle {
+    font-size: 1.8rem;
+    color: #666;
+    margin-bottom: 40px;
+    font-weight: 300;
+}
+
+.hero-buttons {
+    display: flex;
+    gap: 20px;
+    justify-content: center;
+    flex-wrap: wrap;
+}
+
+.btn {
+    padding: 15px 30px;
+    border-radius: 50px;
+    text-decoration: none;
+    font-weight: 500;
+    font-size: 1.1rem;
+    transition: all 0.3s ease;
+    border: none;
+    cursor: pointer;
+    display: inline-block;
+}
+
+.btn-primary {
+    background: #118ab2;
+    color: white;
+}
+
+.btn-primary:hover {
+    background: #0a6c8f;
+    transform: translateY(-3px);
+    box-shadow: 0 5px 15px rgba(17, 138, 178, 0.3);
+}
+
+.btn-secondary {
+    background: transparent;
+    color: #118ab2;
+    border: 2px solid #118ab2;
+}
+
+.btn-secondary:hover {
+    background: #118ab2;
+    color: white;
+    transform: translateY(-3px);
+}
+
+/* 导航栏 */
+#navbar {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    background: rgba(255, 255, 255, 0.95);
+    backdrop-filter: blur(10px);
+    z-index: 1000;
+    transition: transform 0.5s cubic-bezier(0.34, 1.56, 0.64, 1);
+    box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+}
+
+.nav-container {
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 0 20px;
+}
+
+.nav-menu {
+    display: flex;
+    list-style: none;
+    justify-content: space-between;
+    padding: 15px 0;
+}
+
+.nav-left {
+    display: flex;
+    align-items: center;
+}
+
+.nav-right {
+    display: flex;
+    align-items: center;
+}
+
+.nav-item {
+    margin: 0 15px 0 0;
+}
+
+.nav-item:first-child {
+    margin-left: 0;
+}
+
+.nav-item a {
+    text-decoration: none;
+    color: #333;
+    font-size: 1rem;
+    padding: 10px 15px;
+    border-radius: 5px;
+    transition: all 0.3s ease;
+    position: relative;
+}
+
+.nav-item.home-item a {
+    font-size: 1.4rem;
+    color: #ff6b6b;
+    font-weight: 500;
+}
+
+.nav-item:not(.home-item) a:hover {
+    background: rgba(255, 107, 107, 0.1);
+    transform: scale(1.05);
+}
+
+.nav-item.home-item a::after {
+    content: '';
+    position: absolute;
+    bottom: -5px;
+    left: 15px;
+    right: 15px;
+    height: 3px;
+    background: #ff6b6b;
+    border-radius: 2px;
+}
+
+/* 内容区域 - 在首页下方 */
+#content-area {
+    background: #fdfdfd;
+    padding: 80px 20px;
+    width: 100%;
+}
+
+.content-block {
+    max-width: 1000px;
+    margin: 0 auto 60px;
+    background: white;
+    border-radius: 15px;
+    box-shadow: 0 5px 20px rgba(0, 0, 0, 0.05);
+    overflow: hidden;
+    position: relative;
+    min-height: 200px;
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+}
+
+.content-block:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
+}
+
+.block-header {
+    padding: 30px 40px 20px;
+    border-bottom: 1px solid #eee;
+    position: relative;
+}
+
+.block-header::before {
+    content: '';
+    position: absolute;
+    left: 0;
+    top: 30px;
+    width: 6px;
+    height: 40px;
+    border-radius: 3px;
+}
+
+#about .block-header::before {
+    background: #06d6a0;
+}
+
+#projects .block-header::before {
+    background: #118ab2;
+}
+
+#skills .block-header::before {
+    background: #ffd166;
+}
+
+#contact .block-header::before {
+    background: #ff6b6b;
+}
+
+.block-title {
+    font-size: 2.2rem;
+    color: #333;
+    margin-left: 20px;
+}
+
+.block-content {
+    padding: 30px 40px;
+}
+
+/* 粘贴框占位符样式 */
+.stickers-placeholder {
+    min-height: 200px;
+    border: 2px dashed #ddd;
+    border-radius: 10px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background: #f8f9fa;
+    transition: all 0.3s ease;
+    cursor: pointer;
+    position: relative;
+}
+
+body.edit-mode .stickers-placeholder:hover {
+    border-color: #118ab2;
+    background: #e9ecef;
+    transform: scale(1.02);
+}
+
+.placeholder-text {
+    color: #999;
+    font-size: 1.1rem;
+    text-align: center;
+    padding: 20px;
+    pointer-events: none;
+}
+
+/* 双击提示 */
+.stickers-placeholder::after {
+    content: '双击添加内容';
+    position: absolute;
+    bottom: 10px;
+    left: 50%;
+    transform: translateX(-50%);
+    font-size: 0.8rem;
+    color: #999;
+    opacity: 0;
+    transition: opacity 0.3s ease;
+}
+
+body.edit-mode .stickers-placeholder:hover::after {
+    opacity: 1;
+}
+
+/* 粘贴框容器样式 */
+.stickers-container {
+    position: relative;
+    min-height: 200px;
+    width: 100%;
+}
+
+/* 粘贴框网格布局 */
+.stickers-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
+    gap: 20px;
+    padding: 20px;
+}
+
+/* 粘贴框样式 */
+.sticker {
+    position: relative;
+    background: rgba(255, 255, 255, 0.85);
+    backdrop-filter: blur(10px);
+    border-radius: 10px;
+    box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
+    padding: 15px;
+    overflow: hidden;
+    border: 1px solid rgba(255, 255, 255, 0.3);
+    transition: all 0.3s ease;
+}
+
+/* 编辑模式下的粘贴框 */
+body.edit-mode .sticker {
+    cursor: move;
+    resize: both;
+}
+
+body.edit-mode .sticker:hover {
+    box-shadow: 0 8px 25px rgba(0, 0, 0, 0.15);
+    background: rgba(255, 255, 255, 0.9);
+}
+
+/* 预览模式下的粘贴框 */
+body:not(.edit-mode) .sticker {
+    cursor: default;
+    resize: none;
+    background: transparent;
+    backdrop-filter: none;
+}
+
+body:not(.edit-mode) .sticker:hover {
+    box-shadow: 0 8px 25px rgba(0, 0, 0, 0.15);
+}
+
+/* 粘贴框内容 */
+.sticker-content {
+    width: 100%;
+    height: 100%;
+    overflow: auto;
+}
+
+/* 文本粘贴框 */
+.text-sticker .sticker-content {
+    font-size: 1rem;
+    line-height: 1.6;
+    color: #333;
+    padding: 10px;
+    background: transparent;
+    border: none;
+    outline: none;
+    resize: none;
+    width: 100%;
+    height: 100%;
+    font-family: 'Noto Sans SC', sans-serif;
+}
+
+body.edit-mode .text-sticker .sticker-content {
+    background: rgba(255, 255, 255, 0.7);
+    border: 1px dashed rgba(0, 0, 0, 0.1);
+    border-radius: 5px;
+}
+
+/* 图片粘贴框 */
+.image-sticker img {
+    max-width: 100%;
+    max-height: 100%;
+    object-fit: contain;
+    display: block;
+    margin: 0 auto;
+}
+
+/* 视频粘贴框 */
+.video-sticker video {
+    width: 100%;
+    height: 100%;
+    object-fit: contain;
+    display: block;
+}
+
+/* 混合粘贴框 */
+.mixed-sticker .mixed-content {
+    display: flex;
+    flex-direction: column;
+    height: 100%;
+    gap: 10px;
+}
+
+.mixed-sticker img {
+    max-width: 100%;
+    max-height: 60%;
+    object-fit: contain;
+    border-radius: 5px;
+}
+
+.mixed-sticker .mixed-text {
+    flex: 1;
+    overflow: auto;
+    padding: 5px;
+    border: 1px dashed rgba(0, 0, 0, 0.1);
+    border-radius: 5px;
+    min-height: 40px;
+    font-size: 0.9rem;
+    line-height: 1.4;
+    background: rgba(255, 255, 255, 0.7);
+}
+
+body:not(.edit-mode) .mixed-sticker .mixed-text {
+    background: transparent;
+    border-color: transparent;
+}
+
+/* 粘贴框工具栏 */
+.sticker-toolbar {
+    position: absolute;
+    top: 5px;
+    right: 5px;
+    display: flex;
+    gap: 5px;
+    opacity: 0;
+    transition: opacity 0.3s ease;
+}
+
+body.edit-mode .sticker:hover .sticker-toolbar {
+    opacity: 1;
+}
+
+.sticker-toolbar-btn {
+    width: 25px;
+    height: 25px;
+    border-radius: 50%;
+    background: rgba(255, 255, 255, 0.9);
+    border: 1px solid rgba(0, 0, 0, 0.1);
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 0.8rem;
+    transition: all 0.3s ease;
+}
+
+.sticker-toolbar-btn:hover {
+    background: #118ab2;
+    color: white;
+    transform: scale(1.1);
+}
+
+/* 粘贴框调整大小手柄 */
+.sticker-resize-handle {
+    position: absolute;
+    bottom: 5px;
+    right: 5px;
+    width: 15px;
+    height: 15px;
+    background: #118ab2;
+    border-radius: 50%;
+    cursor: nwse-resize;
+    opacity: 0;
+    transition: opacity 0.3s ease;
+}
+
+body.edit-mode .sticker:hover .sticker-resize-handle {
+    opacity: 0.7;
+}
+
+body.edit-mode .sticker:hover .sticker-resize-handle:hover {
+    opacity: 1;
+}
+
+body:not(.edit-mode) .sticker-resize-handle {
+    display: none;
+}
+
+/* 粘贴框删除按钮 */
+.sticker-delete-btn {
+    position: absolute;
+    top: 5px;
+    left: 5px;
+    width: 25px;
+    height: 25px;
+    border-radius: 50%;
+    background: #ff6b6b;
+    color: white;
+    border: none;
+    font-size: 0.9rem;
+    cursor: pointer;
+    opacity: 0;
+    transition: opacity 0.3s ease;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+body.edit-mode .sticker:hover .sticker-delete-btn {
+    opacity: 1;
+}
+
+.sticker-delete-btn:hover {
+    background: #ff5252;
+    transform: scale(1.1);
+}
+
+/* 粘贴框链接按钮 */
+.sticker-link-btn {
+    position: absolute;
+    top: 5px;
+    right: 35px;
+    width: 25px;
+    height: 25px;
+    border-radius: 50%;
+    background: rgba(255, 255, 255, 0.9);
+    border: 1px solid rgba(0, 0, 0, 0.1);
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 0.8rem;
+    opacity: 0;
+    transition: all 0.3s ease;
+}
+
+body.edit-mode .sticker:hover .sticker-link-btn {
+    opacity: 1;
+}
+
+.sticker-link-btn:hover {
+    background: #06d6a0;
+    color: white;
+    transform: scale(1.1);
+}
+
+/* 粘贴框拖拽状态 */
+.sticker.dragging {
+    opacity: 0.8;
+    transform: scale(1.05);
+    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.2);
+    z-index: 1000;
+}
+
+.sticker.resizing {
+    opacity: 0.9;
+}
+
+/* 粘贴框吸附提示 */
+.sticker.overlapping {
+    outline: 2px dashed #06d6a0;
+    outline-offset: 2px;
+}
+
+/* 粘贴框父子关联样式 */
+.sticker.child-sticker {
+    z-index: 101;
+}
+
+.sticker.parent-highlight {
+    outline: 2px solid #118ab2;
+    outline-offset: 2px;
+}
+
+/* 项目作品 */
+.projects-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+    gap: 30px;
+}
+
+.project-card {
+    background: white;
+    border-radius: 10px;
+    overflow: hidden;
+    box-shadow: 0 5px 15px rgba(0, 0, 0, 0.05);
+    transition: transform 0.3s ease;
+}
+
+.project-card:hover {
+    transform: translateY(-10px);
+}
+
+.project-image {
+    height: 200px;
+    overflow: hidden;
+}
+
+.project-image img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    transition: transform 0.5s ease;
+}
+
+.project-card:hover .project-image img {
+    transform: scale(1.1);
+}
+
+.project-info {
+    padding: 20px;
+}
+
+.project-info h3 {
+    font-size: 1.5rem;
+    margin-bottom: 10px;
+    color: #333;
+}
+
+.project-info p {
+    color: #666;
+    line-height: 1.6;
+    margin-bottom: 15px;
+}
+
+.project-tags {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 8px;
+}
+
+.tag {
+    background: #e9ecef;
+    color: #495057;
+    padding: 5px 10px;
+    border-radius: 20px;
+    font-size: 0.875rem;
+}
+
+/* 专业技能 */
+.skills-container {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+    gap: 40px;
+}
+
+.skill-category h3 {
+    font-size: 1.5rem;
+    margin-bottom: 20px;
+    color: #333;
+}
+
+.skill-item {
+    margin-bottom: 20px;
+}
+
+.skill-name {
+    display: block;
+    margin-bottom: 8px;
+    color: #555;
+}
+
+.skill-bar {
+    height: 10px;
+    background: #e9ecef;
+    border-radius: 5px;
+    overflow: hidden;
+}
+
+.skill-level {
+    height: 100%;
+    background: linear-gradient(90deg, #118ab2, #06d6a0);
+    border-radius: 5px;
+    transition: width 1s ease;
+}
+
+/* 联系我 */
+.contact-container {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+    gap: 40px;
+}
+
+.contact-info {
+    display: flex;
+    flex-direction: column;
+    gap: 25px;
+}
+
+.contact-item {
+    display: flex;
+    align-items: flex-start;
+    gap: 15px;
+}
+
+.contact-item i {
+    font-size: 1.5rem;
+    color: #118ab2;
+    margin-top: 5px;
+}
+
+.contact-item h4 {
+    font-size: 1.2rem;
+    margin-bottom: 5px;
+    color: #333;
+}
+
+.contact-item p {
+    color: #666;
+}
+
+.contact-form {
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+}
+
+.form-group input,
+.form-group textarea {
+    width: 100%;
+    padding: 15px;
+    border: 1px solid #ddd;
+    border-radius: 8px;
+    font-family: 'Noto Sans SC', sans-serif;
+    font-size: 1rem;
+    transition: border-color 0.3s ease;
+}
+
+.form-group input:focus,
+.form-group textarea:focus {
+    outline: none;
+    border-color: #118ab2;
+}
+
+.form-group textarea {
+    resize: vertical;
+}
+
+/* 编辑系统UI */
+#editor-ui {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    pointer-events: none;
+    z-index: 2000;
+}
+
+#editor-ui * {
+    pointer-events: auto;
+}
+
+.hidden {
+    display: none !important;
+}
+
+/* 左侧排序面板 */
+#sorting-panel {
+    position: fixed;
+    top: 20px;
+    left: 20px;
+    width: 220px;
+    max-height: calc(100vh - 40px);
+    background: rgba(255, 255, 255, 0.95);
+    backdrop-filter: blur(10px);
+    border-radius: 10px;
+    padding: 20px;
+    box-shadow: 0 5px 20px rgba(0, 0, 0, 0.1);
+    overflow-y: auto;
+}
+
+#sorting-panel h3 {
+    margin-bottom: 15px;
+    color: #333;
+    font-size: 1.2rem;
+}
+
+#block-list {
+    list-style: none;
+}
+
+#block-list li {
+    padding: 10px 15px;
+    margin-bottom: 8px;
+    background: #f8f9fa;
+    border-radius: 5px;
+    cursor: move;
+    border-left: 4px solid #118ab2;
+    transition: all 0.3s ease;
+}
+
+#block-list li:hover {
+    background: #e9ecef;
+    transform: translateX(5px);
+}
+
+#block-list li.dragging {
+    opacity: 0.5;
+}
+
+/* 右下角功能菜单 */
+#function-menu {
+    position: fixed;
+    bottom: 20px;
+    right: 20px;
+}
+
+.editor-btn {
+    width: 60px;
+    height: 60px;
+    border-radius: 50%;
+    background: #118ab2;
+    color: white;
+    border: none;
+    font-size: 1.5rem;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    transition: all 0.3s ease;
+    box-shadow: 0 5px 15px rgba(17, 138, 178, 0.3);
+}
+
+.editor-btn:hover {
+    background: #0a6c8f;
+    transform: scale(1.1);
+}
+
+#menu-options {
+    position: absolute;
+    bottom: 70px;
+    right: 0;
+    background: white;
+    border-radius: 10px;
+    padding: 10px;
+    box-shadow: 0 5px 20px rgba(0, 0, 0, 0.1);
+    min-width: 150px;
+}
+
+.menu-option {
+    display: block;
+    width: 100%;
+    padding: 10px 15px;
+    border: none;
+    background: none;
+    text-align: left;
+    cursor: pointer;
+    border-radius: 5px;
+    transition: background 0.3s ease;
+}
+
+.menu-option:hover {
+    background: #f8f9fa;
+}
+
+/* 退出按钮 */
+#exit-edit-btn {
+    position: fixed;
+    bottom: 20px;
+    left: 20px;
+    background: #ff6b6b;
+}
+
+#exit-edit-btn:hover {
+    background: #ff5252;
+}
+
+/* 文本编辑工具条 */
+#text-toolbar {
+    position: fixed;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    background: white;
+    padding: 15px;
+    border-radius: 10px;
+    box-shadow: 0 5px 20px rgba(0, 0, 0, 0.2);
+    display: flex;
+    gap: 10px;
+    align-items: center;
+    z-index: 3000;
+}
+
+.toolbar-btn {
+    padding: 8px 15px;
+    border: 1px solid #ddd;
+    background: white;
+    border-radius: 5px;
+    cursor: pointer;
+    transition: all 0.3s ease;
+}
+
+.toolbar-btn:hover {
+    background: #f8f9fa;
+    border-color: #118ab2;
+}
+
+.color-picker {
+    display: flex;
+    gap: 5px;
+}
+
+.color-option {
+    width: 25px;
+    height: 25px;
+    border-radius: 50%;
+    cursor: pointer;
+    border: 2px solid transparent;
+    transition: transform 0.3s ease;
+}
+
+.color-option:hover {
+    transform: scale(1.2);
+}
+
+.color-option.active {
+    border-color: #333;
+}
+
+/* 模态框 */
+.modal {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: rgba(0, 0, 0, 0.5);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    z-index: 4000;
+}
+
+.modal-content {
+    background: white;
+    padding: 40px;
+    border-radius: 15px;
+    max-width: 400px;
+    width: 90%;
+    text-align: center;
+}
+
+.modal h3 {
+    margin-bottom: 20px;
+    color: #333;
+}
+
+.auth-form {
+    display: flex;
+    flex-direction: column;
+    gap: 15px;
+}
+
+.auth-form input {
+    padding: 15px;
+    border: 1px solid #ddd;
+    border-radius: 8px;
+    font-size: 1rem;
+}
+
+.auth-form button {
+    padding: 15px;
+    background: #118ab2;
+    color: white;
+    border: none;
+    border-radius: 8px;
+    font-size: 1rem;
+    cursor: pointer;
+    transition: background 0.3s ease;
+}
+
+.auth-form button:hover {
+    background: #0a6c8f;
+}
+
+#forgot-password {
+    color: #666;
+    text-decoration: none;
+    font-size: 0.9rem;
+    margin-top: 10px;
+    display: inline-block;
+}
+
+#forgot-password:hover {
+    color: #118ab2;
+}
+
+/* 项目块操作 - 编辑模式显示 */
+body.edit-mode .block-resize-handle {
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    height: 10px;
+    background: #118ab2;
+    cursor: ns-resize;
+    opacity: 0;
+    transition: opacity 0.3s ease;
+}
+
+body.edit-mode .content-block:hover .block-resize-handle {
+    opacity: 0.5;
+}
+
+body.edit-mode .content-block:hover .block-resize-handle:hover {
+    opacity: 1;
+}
+
+body.edit-mode .block-delete-btn {
+    position: absolute;
+    top: 10px;
+    right: 10px;
+    width: 30px;
+    height: 30px;
+    border-radius: 50%;
+    background: #ff6b6b;
+    color: white;
+    border: none;
+    font-size: 1.2rem;
+    cursor: pointer;
+    opacity: 0;
+    transition: opacity 0.3s ease, transform 0.3s ease;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+body.edit-mode .content-block:hover .block-delete-btn {
+    opacity: 1;
+}
+
+body.edit-mode .block-delete-btn:hover {
+    transform: scale(1.1);
+    background: #ff5252;
+}
+
+/* 非编辑模式隐藏编辑UI元素 */
+body:not(.edit-mode) .block-resize-handle,
+body:not(.edit-mode) .block-delete-btn,
+body:not(.edit-mode) #editor-ui,
+body:not(.edit-mode) #sorting-panel,
+body:not(.edit-mode) #function-menu,
+body:not(.edit-mode) #exit-edit-btn {
+    display: none !important;
+}
+
+/* 非编辑模式悬停效果增强 */
+body:not(.edit-mode) .content-block:hover {
+    transform: translateY(-8px);
+    box-shadow: 0 15px 35px rgba(0, 0, 0, 0.12);
+    transition: transform 0.3s cubic-bezier(0.34, 1.56, 0.64, 1), 
+                box-shadow 0.3s cubic-bezier(0.34, 1.56, 0.64, 1);
+}
+
+/* 编辑模式下的内容块样式 */
+body.edit-mode .content-block {
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+}
+
+body.edit-mode .content-block:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
+}
+
+/* 贴纸样式 - 编辑模式下 */
+body.edit-mode .sticker {
+    position: absolute;
+    width: 200px;
+    height: 160px;
+    background: rgba(255, 255, 255, 0.85); /* 半透明亚克力材质背景 */
+    backdrop-filter: blur(10px);
+    border-radius: 10px;
+    box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
+    padding: 15px;
+    resize: both;
+    overflow: hidden;
+    cursor: move;
+    z-index: 100;
+    border: 1px solid rgba(255, 255, 255, 0.3);
+    transition: background 0.3s ease, box-shadow 0.3s ease;
+}
+
+/* 贴纸样式 - 非编辑模式（预览模式） */
+body:not(.edit-mode) .sticker {
+    position: absolute;
+    width: 200px;
+    height: 160px;
+    background: transparent; /* 透明背景 */
+    backdrop-filter: none;
+    border-radius: 10px;
+    box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
+    padding: 15px;
+    resize: none;
+    overflow: hidden;
+    cursor: default;
+    z-index: 100;
+    border: 1px solid rgba(255, 255, 255, 0.1);
+    transition: background 0.3s ease, box-shadow 0.3s ease;
+}
+
+/* 贴纸悬停效果 */
+body.edit-mode .sticker:hover {
+    box-shadow: 0 8px 25px rgba(0, 0, 0, 0.15);
+    background: rgba(255, 255, 255, 0.9);
+}
+
+body:not(.edit-mode) .sticker:hover {
+    box-shadow: 0 8px 25px rgba(0, 0, 0, 0.15);
+}
+
+.sticker-content {
+    width: 100%;
+    height: 100%;
+    overflow: auto;
+}
+
+.sticker img {
+    max-width: 100%;
+    max-height: 100%;
+    object-fit: contain;
+}
+
+.sticker video {
+    width: 100%;
+    height: 100%;
+    object-fit: contain;
+}
+
+/* 贴纸调整大小手柄 - 只在编辑模式下显示 */
+body.edit-mode .sticker-resize-handle {
+    position: absolute;
+    bottom: 5px;
+    right: 5px;
+    width: 15px;
+    height: 15px;
+    background: #118ab2;
+    border-radius: 50%;
+    cursor: nwse-resize;
+    opacity: 0;
+    transition: opacity 0.3s ease;
+}
+
+body.edit-mode .sticker:hover .sticker-resize-handle {
+    opacity: 0.7;
+}
+
+body.edit-mode .sticker:hover .sticker-resize-handle:hover {
+    opacity: 1;
+}
+
+/* 非编辑模式隐藏调整大小手柄 */
+body:not(.edit-mode) .sticker-resize-handle {
+    display: none;
+}
+
+/* 混合贴纸特定样式 */
+.mixed-sticker .mixed-content {
+    display: flex;
+    flex-direction: column;
+    height: 100%;
+    gap: 10px;
+}
+
+.mixed-sticker img {
+    max-width: 100%;
+    max-height: 60%;
+    object-fit: contain;
+    border-radius: 5px;
+}
+
+.mixed-sticker .mixed-text {
+    flex: 1;
+    overflow: auto;
+    padding: 5px;
+    border: 1px dashed rgba(0, 0, 0, 0.1);
+    border-radius: 5px;
+    min-height: 40px;
+    font-size: 0.9rem;
+    line-height: 1.4;
+}
+
+/* 编辑模式下混合贴纸的文本区域样式 */
+body.edit-mode .mixed-sticker .mixed-text {
+    background: rgba(255, 255, 255, 0.7);
+    border-color: rgba(0, 0, 0, 0.2);
+}
+
+/* 预览模式下混合贴纸的文本区域样式 */
+body:not(.edit-mode) .mixed-sticker .mixed-text {
+    background: transparent;
+    border-color: transparent;
+}
+
+/* 贴纸工具栏样式 */
+.sticker-toolbar {
+    position: absolute;
+    top: 5px;
+    right: 5px;
+    display: flex;
+    gap: 5px;
+    opacity: 0;
+    transition: opacity 0.3s ease;
+}
+
+body.edit-mode .sticker:hover .sticker-toolbar {
+    opacity: 1;
+}
+
+.sticker-link-btn {
+    width: 25px;
+    height: 25px;
+    border-radius: 50%;
+    background: rgba(255, 255, 255, 0.9);
+    border: 1px solid rgba(0, 0, 0, 0.1);
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 0.8rem;
+    transition: all 0.3s ease;
+}
+
+.sticker-link-btn:hover {
+    background: #118ab2;
+    color: white;
+    transform: scale(1.1);
+}
+
+/* 贴纸调整大小手柄 */
+.sticker-resize {
+    position: absolute;
+    bottom: 5px;
+    right: 5px;
+    width: 15px;
+    height: 15px;
+    background: #118ab2;
+    border-radius: 50%;
+    cursor: nwse-resize;
+    opacity: 0;
+    transition: opacity 0.3s ease;
+}
+
+body.edit-mode .sticker:hover .sticker-resize {
+    opacity: 0.7;
+}
+
+body.edit-mode .sticker:hover .sticker-resize:hover {
+    opacity: 1;
+}
+
+/* 贴纸重叠提示 */
+.sticker.overlapping {
+    outline: 2px dashed #06d6a0;
+    outline-offset: 2px;
+}
+
+/* 贴纸拖拽状态 */
+.sticker.dragging {
+    opacity: 0.8;
+    transform: scale(1.05);
+    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.2);
+}
+
+.sticker.resizing {
+    opacity: 0.9;
+}
+
+/* 鼠标粒子 */
+#cursor-particle {
+    position: fixed;
+    width: 20px;
+    height: 20px;
+    pointer-events: none;
+    z-index: 9999;
+    transition: transform 0.1s ease;
+}
+
+.particle {
+    position: absolute;
+    border-radius: 50%;
+    pointer-events: none;
+    z-index: 9998;
+}
+
+/* 响应式设计 */
+@media (max-width: 768px) {
+    .hero-title {
+        font-size: 2.5rem;
+    }
+    
+    .hero-subtitle {
+        font-size: 1.2rem;
+    }
+    
+    .nav-menu {
+        flex-wrap: wrap;
+    }
+    
+    .nav-item {
+        margin: 5px;
+    }
+    
+    .nav-item.active a {
+        font-size: 1.2rem;
+    }
+    
+    .block-title {
+        font-size: 1.8rem;
+    }
+    
+    .projects-grid {
+        grid-template-columns: 1fr;
+    }
+    
+    .skills-container {
+        grid-template-columns: 1fr;
+    }
+    
+    .contact-container {
+        grid-template-columns: 1fr;
+    }
+    
+    #sorting-panel {
+        width: 180px;
+        padding: 15px;
+    }
+    
+    .editor-btn {
+        width: 50px;
+        height: 50px;
+        font-size: 1.2rem;
+    }
+}
+
+@media (max-width: 480px) {
+    .hero-content {
+        padding: 20px;
+    }
+    
+    .hero-title {
+        font-size: 2rem;
+    }
+    
+    .hero-buttons {
+        flex-direction: column;
+        align-items: center;
+    }
+    
+    .btn {
+        width: 100%;
+        max-width: 250px;
+    }
+    
+    .about-stats {
+        justify-content: center;
+    }
+    
+    .stat-item {
+        min-width: 100px;
+    }
+}
+
+/* 动画类 */
+.fade-in-up {
+    animation: fadeInUp 0.6s ease forwards;
+    opacity: 0;
+}
+
+@keyframes fadeInUp {
+    from {
+        opacity: 0;
+        transform: translateY(30px);
+    }
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+/* 插入指示器 */
+.insert-indicator {
+    position: absolute;
+    height: 4px;
+    background: #118ab2;
+    border-radius: 2px;
+    opacity: 0.7;
+    z-index: 100;
+    pointer-events: none;
+}
+
+/* 工具提示 */
+.tooltip {
+    position: absolute;
+    background: #333;
+    color: white;
+    padding: 5px 10px;
+    border-radius: 5px;
+    font-size: 0.875rem;
+    white-space: nowrap;
+    z-index: 10000;
+    pointer-events: none;
+}
+
+.tooltip::after {
+    content: '';
+    position: absolute;
+    top: 100%;
+    left: 50%;
+    transform: translateX(-50%);
+    border: 5px solid transparent;
+    border-top-color: #333;
+}

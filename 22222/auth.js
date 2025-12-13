@@ -49,22 +49,16 @@ function showPasswordModal() {
     </div>
   `;
   document.body.appendChild(modal);
-  document.getElementById('pass-input').focus();
-}
-
-function submitPassword() {
+  
   const input = document.getElementById('pass-input');
-  if (input && input.value === ADMIN_PASSWORD) {
-    enableEditMode();
-    closePasswordModal();
-  } else {
-    alert('密码错误！');
-  }
-}
-
-function closePasswordModal() {
-  const modal = document.getElementById('password-modal');
-  if (modal) modal.remove();
+  input.focus();
+  
+  // 👇 新增：回车确认
+  input.addEventListener('keydown', (e) => {
+    if (e.key === 'Enter') {
+      submitPassword();
+    }
+  });
 }
 
 // 全局函数供 HTML 调用
